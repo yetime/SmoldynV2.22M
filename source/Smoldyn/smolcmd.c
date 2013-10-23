@@ -1898,7 +1898,7 @@ enum CMDcode cmdreact1(simptr sim,cmdptr cmd,char *line2) {
 
 
 enum CMDcode cmdsetrateint(simptr sim,cmdptr cmd,char *line2) {
-	int itct,r,order;
+	int itct,r,order, i, j;
 	static char rnm[STRCHAR];
 	double rateint;
 
@@ -1917,10 +1917,13 @@ enum CMDcode cmdsetrateint(simptr sim,cmdptr cmd,char *line2) {
 			if(r>=0) order=2;
 			else SCMDCHECK(0,"reaction name not recognized"); }}
 	SCMDCHECK(rateint>=0,"internal rate cannot be negative");
-	if(order<2) sim->rxnss[order]->rxn[r]->prob=rateint;
-	//@Christine: changed to  lookup table for bindrad , setting default bindrad 
-	else sim->rxnss[order]->rxn[r]->bindrad2[0][0]=rateint*rateint;
-	return CMDok; }
+	for(i=0;i<=sim->nrfs;i++){
+	  for(j=0;j<=sim->nrfs;j++){
+	    if(order<2) sim->rxnss[order]->rxn[r]->prob[i][j]=rateint;
+	      //@Christine: changed to  lookup table for bindrad , setting default bindrad 
+	    else sim->rxnss[order]->rxn[r]->bindrad2[i][j]=rateint*rateint;
+	  }}
+	 return CMDok; }
 
 
 /*

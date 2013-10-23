@@ -908,16 +908,16 @@ surfaceptr surfacealloc(surfaceptr srf,int oldmaxspecies,int maxspecies,int dim)
 		CHECK(srf->sdifc=(double**) calloc(maxspecies, sizeof(double*)));
 		for(i=0;i<maxspecies;i++){ 
 		    srf->sdifc[i]=NULL;
-		    CHECK(srf->sdifc[i]=(double*) calloc(MSMAX, sizeof(double)));
-		    for(ms=0;ms<MSMAX;ms++) srf->sdifc[i][ms]=0;
+		    CHECK(srf->sdifc[i]=(double*) calloc(MSMAX1, sizeof(double)));
+		    for(ms=0;ms<MSMAX1;ms++) srf->sdifc[i][ms]=0;
 		 }
 	
 		//Christine
 		CHECK(srf->sdifstep=(double**) calloc(maxspecies, sizeof(double*)));
 		for(i=0;i<maxspecies;i++){ 
 		    srf->sdifstep[i]=NULL;
-		    CHECK(srf->sdifstep[i]=(double*) calloc(MSMAX, sizeof(double)));
-		    for(ms=0;ms<MSMAX;ms++) srf->sdifstep[i][ms]=0;
+		    CHECK(srf->sdifstep[i]=(double*) calloc(MSMAX1, sizeof(double)));
+		    for(ms=0;ms<MSMAX1;ms++) srf->sdifstep[i][ms]=0;
 		 }
 		 
 		
@@ -979,13 +979,18 @@ void surfacefree(surfaceptr srf,int maxspecies) {
 				free(srf->action[i][ms]);
 			free(srf->action[i]); }
 	free(srf->action);
-	
+	 
 	//Christine
-	for(i=0;i<maxspecies;i++) {
-		if(srf->sdifc) free(srf->sdifc[i]); 
-		if(srf->sdifstep) free(srf->sdifstep[i]);}
-	free(srf->sdifc);        
+	
+	for(i=0;i<maxspecies;i++)
+		if(srf->sdifstep[i]) {
+			free(srf->sdifstep[i]); }
 	free(srf->sdifstep);
+	    
+	for(i=0;i<maxspecies;i++)
+		if(srf->sdifc[i]) {
+			free(srf->sdifc[i]); }
+	free(srf->sdifc);  
 	
 	free(srf);
 	return; }

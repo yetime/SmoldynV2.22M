@@ -497,14 +497,19 @@ double MolCalcDifcSum(simptr sim,int i1,enum MolecState ms1,int i2,enum MolecSta
 
 	sum=0;
 	if(i1) {
-		if(ms1>=MSMAX) ms1=MSsoln;
-		if(surfaceID1!=-1 && sim->srfss->srflist[surfaceID1] && sim->srfss->srflist[surfaceID1]->sdifc[i1][ms1]>0)
+		if(ms1>=MSMAX1) ms1=MSsoln;
+		if(surfaceID1!=-1 && sim->srfss->srflist[surfaceID1] && sim->srfss->srflist[surfaceID1]->sdifc[i1][ms1]>=0){
 			sum+=sim->srfss->srflist[surfaceID1]->sdifc[i1][ms1];
+			//printf("1: %f\n",sim->srfss->srflist[surfaceID1]->sdifc[i1][ms1]);
+		  
+		}
 		else sum+=sim->mols->difc[i1][ms1]; }
 	if(i2) {
-		if(ms2>=MSMAX) ms2=MSsoln;
-		if(surfaceID2!=-1 && sim->srfss->srflist[surfaceID2] && sim->srfss->srflist[surfaceID2]->sdifc[i2][ms2]>0)
+		if(ms2>=MSMAX1) ms2=MSsoln;
+		if(surfaceID2!=-1 && sim->srfss->srflist[surfaceID2] && sim->srfss->srflist[surfaceID2]->sdifc[i2][ms2]>=0){
 			sum+=sim->srfss->srflist[surfaceID2]->sdifc[i2][ms2];
+			//printf("2: %f\n",sim->srfss->srflist[surfaceID2]->sdifc[i2][ms2]);
+		}
 		else sum+=sim->mols->difc[i2][ms2]; } 
 	return sum; }
 
@@ -1728,7 +1733,7 @@ int diffuse(simptr sim) {
 					for(d=0;d<dim;d++) {
 						mptr->posx[d]=mptr->pos[d]; 
 						//@Christine, Check for different difc for molecules surface 
-						if(mptr->pnl && mptr->pnl->srf->sdifc[i][ms])  {  
+						if(mptr->pnl && mptr->pnl->srf->sdifc[i][ms]>=0)  {  
 						  mptr->pos[d]+=mptr->pnl->srf->sdifstep[i][ms]*gtable[randULI()&ngtablem1];}
 						else { 
 						    mptr->pos[d]+=difstep[i][ms]*gtable[randULI()&ngtablem1]; }}}

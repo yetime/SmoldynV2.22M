@@ -1,8 +1,8 @@
 /* Steven Andrews, started 10/22/2001.
- This is a library of functions for the Smoldyn program.  See documentation
- called Smoldyn_doc1.pdf and Smoldyn_doc2.pdf.
- Copyright 2003-2011 by Steven Andrews.  This work is distributed under the terms
- of the Gnu General Public License (GPL). */
+This is a library of functions for the Smoldyn program.  See documentation
+called Smoldyn_doc1.pdf and Smoldyn_doc2.pdf.
+Copyright 2003-2011 by Steven Andrews.  This work is distributed under the terms
+of the Gnu General Public License (GPL). */
 
 #include <stdio.h>
 #include <math.h>
@@ -87,8 +87,8 @@ typedef struct PARAMSET_unireact_threaded_calculate_reactions {
 /******************************************************************************/
 
 /* rxnstring2rp.  Converts string to enumerated RevParam type.  This reads
- either single letter inputs or full word inputs.  Unrecognized inputs are
- returned as RPnone. */
+either single letter inputs or full word inputs.  Unrecognized inputs are
+returned as RPnone. */
 enum RevParam rxnstring2rp(char *string) {
 	enum RevParam ans;
 
@@ -144,8 +144,8 @@ enum RevParam rxnstring2rp(char *string) {
 }
 
 /* rxnrp2string.  Converts RevParam enumerated type variable rp to a word in
- string that can be displayed.  Unrecognized inputs, as well as RPnone, get
- returned as "none". */
+string that can be displayed.  Unrecognized inputs, as well as RPnone, get
+returned as "none". */
 char *
 rxnrp2string(enum RevParam rp, char *string) {
 	if (rp == RPirrev)
@@ -227,7 +227,7 @@ void rxnunpackident(int order, int maxspecies, int ipack, int *ident) {
 }
 
 /* rxnpackstate.  Packs of list of order molecule states that are listed in
- mstate into a single value, which is returned. */
+mstate into a single value, which is returned. */
 enum MolecState rxnpackstate(int order, enum MolecState *mstate) {
 	if (order == 0)
 		return 0;
@@ -239,7 +239,7 @@ enum MolecState rxnpackstate(int order, enum MolecState *mstate) {
 }
 
 /* rxnunpackstate.  Unpacks a packed molecule state that is input in mspack
- to order individual states in mstate. */
+to order individual states in mstate. */
 void rxnunpackstate(int order, enum MolecState mspack, enum MolecState *mstate) {
 	if (order == 0)
 		;
@@ -253,7 +253,7 @@ void rxnunpackstate(int order, enum MolecState mspack, enum MolecState *mstate) 
 }
 
 /* rxnallstates.  Returns 1 if the listed reaction is permitted for all reactant
- states and 0 if not. */
+states and 0 if not. */
 int rxnallstates(rxnptr rxn) {
 	enum MolecState ms;
 	int nms2o;
@@ -269,13 +269,13 @@ int rxnallstates(rxnptr rxn) {
 }
 
 /* rxnreactantstate.  Looks through the reaction permit element to see if the
- reaction is permitted for any state or state combination.  If not, it returns 0;
- if so, it returns 1.  Also, if the reaction is permitted and if mstate is not
- NULL, the �simplest� permitted state is returned in mstate.  Preference is given
- to MSsoln and MSbsoln, with other states investigated afterwards.  If convertb2f
- is set to 1, any returned states of MSbsoln are converted to MSsoln before the
- function returns.  This function always returns a singe states in mstate (or
- MSnone if the reaction is not permitted at all), and never MSall or MSsome. */
+reaction is permitted for any state or state combination.  If not, it returns 0;
+if so, it returns 1.  Also, if the reaction is permitted and if mstate is not
+NULL, the �simplest� permitted state is returned in mstate.  Preference is given
+to MSsoln and MSbsoln, with other states investigated afterwards.  If convertb2f
+is set to 1, any returned states of MSbsoln are converted to MSsoln before the
+function returns.  This function always returns a singe states in mstate (or
+MSnone if the reaction is not permitted at all), and never MSall or MSsome. */
 int rxnreactantstate(rxnptr rxn, enum MolecState *mstate, int convertb2f) {
 	int order, permit;
 	enum MolecState ms, ms1, ms2;
@@ -372,19 +372,19 @@ int rxnreactantstate(rxnptr rxn, enum MolecState *mstate, int convertb2f) {
 }
 
 /* findreverserxn.  Inputs the reaction defined by order order and reaction
- number r and looks to see if there is a reverse reaction.  The molecule states
- for the input reactants are not considered.  If there is a direct reverse
- reaction, meaning the products of the input reaction (including states), are
- themselves able to react to form the reactants of the input reaction (perhaps
- with different states), then the function returns 1 and the order and reaction
- number of the reverse reaction are pointed to by optr and rptr.  If there is no
- direct reverse reaction, but the products of the input reaction are still able
- to react, the function returns 2 and optr and rptr point to the first listed
- continuation reaction.  The function returns 0 if the products do not react with
- each other, if there are no reactants, or if there are no products.  -1 is
- returned for illegal inputs.  Either or both of optr and rptr are allowed to be
- sent in as NULL values if the respective pieces of output information are not of
- interest. */
+number r and looks to see if there is a reverse reaction.  The molecule states
+for the input reactants are not considered.  If there is a direct reverse
+reaction, meaning the products of the input reaction (including states), are
+themselves able to react to form the reactants of the input reaction (perhaps
+with different states), then the function returns 1 and the order and reaction
+number of the reverse reaction are pointed to by optr and rptr.  If there is no
+direct reverse reaction, but the products of the input reaction are still able
+to react, the function returns 2 and optr and rptr point to the first listed
+continuation reaction.  The function returns 0 if the products do not react with
+each other, if there are no reactants, or if there are no products.  -1 is
+returned for illegal inputs.  Either or both of optr and rptr are allowed to be
+sent in as NULL values if the respective pieces of output information are not of
+interest. */
 int findreverserxn(simptr sim, int order, int r, int *optr, int *rptr) {
 	rxnssptr rxnss, rxnssr;
 	rxnptr rxn, rxnr;
@@ -441,12 +441,12 @@ int findreverserxn(simptr sim, int order, int r, int *optr, int *rptr) {
 }
 
 /* rxnisprod.  Determines if a molecule with identity i and state ms is the
- product of any reaction, of any order, returning 1 if so and 0 if not.  If code
- is 0, there are no additional conditions.  If code is 1, the molecule also has
- to be displaced from the reaction position (i.e. either confspread or the
- unbinding radius is non-zero) in order to qualify. */
+product of any reaction, of any order, returning 1 if so and 0 if not.  If code
+is 0, there are no additional conditions.  If code is 1, the molecule also has
+to be displaced from the reaction position (i.e. either confspread or the
+unbinding radius is non-zero) in order to qualify. */
 int rxnisprod(simptr sim, int i, enum MolecState ms, int code) {
-	int order, k, r, prd;
+	int order, k, l,r, prd;
 	rxnssptr rxnss;
 	rxnptr rxn;
 
@@ -463,12 +463,15 @@ int rxnisprod(simptr sim, int i, enum MolecState ms, int code) {
 						if (rxn->rparamt == RPconfspread)
 							return 1;
 						for (k = 0; k <= rxnss->sim->nrfs; k++) {
-							if (rxn->unbindrad && rxn->unbindrad[k] > 0)
+						  for(l = 0; l <=rxnss->sim->nrfs; l++) {
+							if (rxn->unbindrad[k][l] && rxn->unbindrad[k][l] > 0)
 								return 1;
-						}
-						if (dotVVD(rxn->prdpos[prd], rxn->prdpos[prd], sim->dim)
+							if (dotVVD(rxn->prdpos[k][l][prd], rxn->prdpos[k][l][prd], sim->dim)
 								> 0)
-							return 1;
+							    return 1;
+						  }
+						}
+						
 					}
 			}
 		}
@@ -481,9 +484,9 @@ int rxnisprod(simptr sim, int i, enum MolecState ms, int code) {
 /******************************************************************************/
 
 /* rxnalloc.  Allocates and initializes a reaction structure of order order.
- The reaction has order reactants, a permit element that is allocated, no
- products, and most parameters are set to -1 to indicate that they have not been
- set up yet. */
+The reaction has order reactants, a permit element that is allocated, no
+products, and most parameters are set to -1 to indicate that they have not been
+set up yet. */
 rxnptr rxnalloc(int order, int max_surface) {
 	rxnptr rxn;
 	int rct, nms2o, i;
@@ -500,14 +503,15 @@ rxnptr rxnalloc(int order, int max_surface) {
 	rxn->prdstate=NULL;
 	rxn->rate=-1;
 	//rxn->bindrad2=-1; see below
-	rxn->prob=-1;
-	rxn->tau=-1;
+	//rxn->prob=-1;
+	//rxn->tau=-1;
 	rxn->rparamt=RPnone;
 	rxn->rparam=0;
 	//rxn->unbindrad=-1;
 	rxn->prdpos=NULL;
 	rxn->cmpt=NULL;
 	rxn->srf=NULL;
+
 
 	if(order>0) {
 		CHECK(rxn->rctident=(int*)calloc(order,sizeof(int)));
@@ -522,27 +526,65 @@ rxnptr rxnalloc(int order, int max_surface) {
 		for(rct=0;rct<max_surface+1;rct++) {
 			rxn->bindrad2[rct]=NULL;
 			CHECK(rxn->bindrad2[rct]=(double*) calloc(max_surface+1, sizeof(double)));
-			for(i=0;i<max_surface+1;i++) rxn->bindrad2[rct][i]=0;
+			for(i=0;i<max_surface+1;i++) rxn->bindrad2[rct][i]=-1;
 		}
-		CHECK(rxn->unbindrad=(double*) calloc(max_surface+1, sizeof(double)));
-		for(rct=0;rct<max_surface+1;rct++) rxn->unbindrad[rct]=0;}
+		CHECK(rxn->unbindrad=(double**) calloc(max_surface+1, sizeof(double*)));
+		for(rct=0;rct<max_surface+1;rct++) {
+		    rxn->unbindrad[rct]=NULL; 
+			CHECK(rxn->unbindrad[rct]=(double*) calloc(max_surface+1, sizeof(double)));
+			for(i=0;i<max_surface+1;i++) rxn->unbindrad[rct][i]=-1;
+		}
+		    
+		CHECK(rxn->pgemptr=(double**) calloc(max_surface+1, sizeof(double*)));
+		for(rct=0;rct<max_surface+1;rct++) {
+			rxn->pgemptr[rct]=NULL;
+			CHECK(rxn->pgemptr[rct]=(double*) calloc(max_surface+1, sizeof(double)));
+			for(i=0;i<max_surface+1;i++) rxn->pgemptr[rct][i]=-1;
+		}
+		
+		
+		CHECK(rxn->prob=(double**) calloc(max_surface+1, sizeof(double*)));
+		for(rct=0;rct<max_surface+1;rct++) {
+			rxn->prob[rct]=NULL;
+			CHECK(rxn->prob[rct]=(double*) calloc(max_surface+1, sizeof(double)));
+			for(i=0;i<max_surface+1;i++) rxn->prob[rct][i]=-10;
+		}
+		
+		CHECK(rxn->tau=(double**) calloc(max_surface+1, sizeof(double*)));
+		for(rct=0;rct<max_surface+1;rct++) {
+			rxn->tau[rct]=NULL;
+			CHECK(rxn->tau[rct]=(double*) calloc(max_surface+1, sizeof(double)));
+			for(i=0;i<max_surface+1;i++) rxn->tau[rct][i]=-1;
+		}
+		
+	}	    
 
 	return rxn;
 
 	failure:
 	rxnfree(rxn);
-	return NULL;}
+	return NULL;
+  
+}
 
 /* rxnfree.  Frees a reaction structure. */
 void rxnfree(rxnptr rxn) {
-	int prd, i;
+	int prd, i, ns, ns2;
 	int nos = 0;
 
 	if (!rxn)
 		return;
-	if (rxn->prdpos)
-		for (prd = 0; prd < rxn->nprod; prd++)
-			free(rxn->prdpos[prd]);
+	if (rxn->prdpos){
+		for(ns=0;ns<rxn->rxnss->sim->nrfs+1;ns++){
+		    for(ns2=0;ns2<rxn->rxnss->sim->nrfs+1; ns2++) {
+			for (prd = 0; prd < rxn->nprod; prd++) {
+			    free(rxn->prdpos[ns][ns2][prd]);
+			}
+			free(rxn->prdpos[ns][ns2]);
+		    }
+		    free(rxn->prdpos[ns]);
+		}
+	}
 	free(rxn->prdpos);
 	free(rxn->prdstate);
 	free(rxn->prdident);
@@ -551,14 +593,34 @@ void rxnfree(rxnptr rxn) {
 	free(rxn->rctident);
 
 	if (rxn->rxnss->sim->nrfs)
-		nos = rxn->rxnss->sim->nrfs;
+		nos = rxn->rxnss->sim->nrfs+1;
 
 	for (i = 0; i < nos; i++)
 		if (rxn->bindrad2[i])
 			free(rxn->bindrad2[i]);
 	free(rxn->bindrad2);
+	
+	for (i = 0; i < nos; i++)
+		if (rxn->unbindrad[i])
+			free(rxn->unbindrad[i]);
 	free(rxn->unbindrad);
 
+	
+	for (i = 0; i < nos; i++)
+		if (rxn->pgemptr[i])
+			free(rxn->pgemptr[i]);
+	free(rxn->pgemptr);
+	
+	for (i = 0; i < nos; i++)
+		if (rxn->tau[i])
+			free(rxn->tau[i]);
+	free(rxn->tau);
+	
+	for (i = 0; i < nos; i++)
+		if (rxn->prob[i])
+	free(rxn->prob[i]);
+	free(rxn->prob);
+	
 	free(rxn);
 	return;
 }
@@ -569,8 +631,8 @@ rxnssptr rxnssalloc(int order, int maxspecies) {
 	int ni2o, i;
 
 	rxnss = NULL;
-	CHECK(order>=0)
-;	CHECK(rxnss=(rxnssptr) malloc(sizeof(struct rxnsuperstruct)));
+	CHECK(order>=0);
+	CHECK(rxnss=(rxnssptr) malloc(sizeof(struct rxnsuperstruct)));
 	rxnss->condition=SCinit;
 	rxnss->sim=NULL;
 	rxnss->order=order;
@@ -594,7 +656,9 @@ rxnssptr rxnssalloc(int order, int maxspecies) {
 
 	failure:
 	rxnssfree(rxnss);
-	return NULL;}
+	return NULL;
+  
+}
 
 /* rxnssfree */
 void rxnssfree(rxnssptr rxnss) {
@@ -629,13 +693,15 @@ void rxnssfree(rxnssptr rxnss) {
 /* rxnoutput */
 void rxnoutput(simptr sim, int order) {
 	rxnssptr rxnss;
-	int dim, maxlist, maxll2o, ll, ord, ni2o, i, j, k, l, r, rct, prd, rev,
+	int dim, maxlist, maxll2o, ll, ord, ni2o, i, j,k,l, r, rct, prd, rev,
 			identlist[MAXORDER], orderr, rr, i1, i2, o2, r2;
 	rxnptr rxn, rxnr;
 	enum MolecState ms, ms1, ms2, nms2o, statelist[MAXORDER];
-	double dsum, step, pgem, rate3, bindrad, rparam, ratio;
+	double dsum, step, rate3, rparam, ratio, bindrad;
 	char string[STRCHAR];
 	enum RevParam rparamt;
+	
+	;
 
 	printf("ORDER %i REACTION PARAMETERS\n", order);
 	if (!sim || !sim->mols || !sim->rxnss[order]) {
@@ -736,52 +802,67 @@ void rxnoutput(simptr sim, int order) {
 			printf("   compartment: %s\n", rxn->cmpt->cname);
 		if (rxn->srf)
 			printf("   surface: %s\n", rxn->srf->sname);
-		if (rxn->rate >= 0)
-			printf("   requested and actual rate constants: %g, %g\n",
-					rxn->rate, rxncalcrate(sim, order, r, &pgem));
-		else
-			printf("   actual rate constant: %g\n", rxncalcrate(sim, order, r,
-					&pgem));
-		if (pgem >= 0)
-			printf("   geminate recombination probability: %g\n", pgem);
-		if (rxn->rparamt == RPconfspread)
-			printf("   conformational spread reaction\n");
-		if (rxn->tau >= 0)
-			printf("   characteristic time: %g\n", rxn->tau);
-		if (order == 0)
-			printf("   average reactions per time step: %g\n", rxn->prob);
-		else if (order == 1)
-			printf("   reaction probability per time step: %g\n", rxn->prob);
-		else if (rxn->prob >= 0 && rxn->prob != 1)
-			printf("   reaction probability after collision: %g\n", rxn->prob);
+		
+		for (i = 0; i <= rxnss->sim->nrfs; i++) {
+		    for (j = 0; j <= rxnss->sim->nrfs; j++) {
+		
+			if(rxn->rate>=0) {
+			    printf("   requested and actual rate constants: %g, %g\n",rxn->rate,rxncalcrate(sim,order,r,&(rxn->pgemptr[i][j]), i-1,j-1));
+			}
+			else {
+			
+			    printf("   actual rate constant: %g\n", rxncalcrate(sim, order, r,
+					&(rxn->pgemptr[i][j]),i-1,j-1));
+			}
+		    }
+		    if (rxn->pgemptr[i][j] >= 0){
+				printf("   geminate recombination probability: %g\n", rxn->pgemptr[i][j]);
+		    }
+		}
+		
+			  
+		for (i = 0; i <= rxnss->sim->nrfs; i++) {
+			for (j = 0; j <= rxnss->sim->nrfs; j++) {
+			    if (rxn->rparamt == RPconfspread)
+				printf("   conformational spread reaction\n");
+		
+			    if (rxn->tau[i][j] >= 0)
+				printf("   characteristic time: %g\n", rxn->tau[i][j]);
+		
+			    if (order == 0)
+				printf("   average reactions per time step: %g\n", rxn->prob[i][j]);
+			    else if (order == 1)
+				printf("   reaction probability per time step: %g\n", rxn->prob[i][j]);
+			    else if (rxn->prob[i][j] >= 0 && rxn->prob[i][j] != 1)
+				printf("   reaction probability after collision: %g\n", rxn->prob[i][j]);
 
-		for (i = 0; i <= sim->nrfs; i++) {
-			for (j = 0; j <= sim->nrfs; j++) {
-				if (rxn->bindrad2 && rxn->bindrad2[i][j] >= 0)
-					printf("   binding radius: %g for surface %i x %i \n",
+			    if (rxn->bindrad2[i][j] >= 0)
+				printf("   binding radius: %g for surface %i x %i \n",
 							sqrt(rxn->bindrad2[i][j]), (i - 1), (j - 1));
 			}
 		}
+	
 
-		if (rxn->nprod == 2) {
-
+		if (rxn->nprod == 2) { 
 			for (i = 0; i <= sim->nrfs; i++) {
-				if (rxn->unbindrad[i] >= 0)
-					printf("   unbinding radius: %g for surface %i\n",
-							rxn->unbindrad[i], (i - 1));
+			  for(j=0;j<=sim->nrfs;j++) {
+				if (rxn->unbindrad[i][j] >= 0)
+					printf("   unbinding radius: %g for surface %i x %i \n",
+							rxn->unbindrad[i][j], i, j);
 				else
 					printf("   unbinding radius: 0\n");
+			  }
 			}
 			if (rxn->rparamt != RPconfspread && rxn->rparamt != RPbounce
 					&& findreverserxn(sim, order, r, &o2, &r2) == 1) {
-				rxnr = sim->rxnss[o2]->rxn[r2];
-				//Christine: just for output ...
+				//rxnr = sim->rxnss[o2]->rxn[r2]; //Chr: doesn't really seem to be needed?
+				//Chr
 				for (i = -1; i < sim->nrfs; i++) {
-					for (j = -1; j < sim->nrfs; j++) {
+					for (j = -1; j < sim->nrfs; j++) { 
 						dsum = MolCalcDifcSum(sim, rxn->prdident[0],
 								rxn->prdstate[0], rxn->prdident[1],
 								rxn->prdstate[1], i, j);
-						rate3 = rxncalcrate(sim, o2, r2, NULL);
+						rate3 = rxncalcrate(sim, o2, r2, NULL, i, j);
 						if (rxn->prdident[0] == rxn->prdident[1])
 							rate3 *= 2; // same reactants
 						rparamt = rxn->rparamt;
@@ -794,12 +875,14 @@ void rxnoutput(simptr sim, int order) {
 								|| rparamt == RPpgemmaxw) {
 							bindrad = bindingradius(rate3 * (1.0 - rparam), 0,
 									dsum, -1, 0);
-							pgem = rparam;
+							rxn->pgemptr[i+1][j+1] = rparam;
+							
 						}
-						else
+						else   {
 							bindrad = bindingradius(rate3, 0, dsum, -1, 0);
+						}
 						printf("   unbinding radius if dt were 0: %g\n",
-								unbindingradius(pgem, 0, dsum, bindrad));
+								unbindingradius(rxn->pgemptr[i+1][j+1] , 0, dsum, bindrad));
 					}
 				}
 			}
@@ -810,12 +893,12 @@ void rxnoutput(simptr sim, int order) {
 			ms2 = statelist[1];
 			i1 = rxn->rctident[0];
 			i2 = rxn->rctident[1];
-			//Christine: Also just for output...
-			for (i = 0; i <= sim->nrfs; i++) {
-				for (j = 0; j <= sim->nrfs; j++) {
-					dsum = MolCalcDifcSum(sim, i1, ms1, i2, ms2, i - 1, j - 1);
-					rev = findreverserxn(sim, 2, r, &o2, &r2);
-					rate3 = rxncalcrate(sim, order, r, NULL);
+			//Christine
+			for (i = -1; i <sim->nrfs; i++) {
+				for (j = -1; j < sim->nrfs; j++) {
+					dsum = MolCalcDifcSum(sim, i1, ms1, i2, ms2, i, j); 
+					rev = findreverserxn(sim, 2, r, &o2, &r2); 
+					rate3 = rxncalcrate(sim, order, r, NULL, i, j); 
 					if (i1 == i2)
 						rate3 *= 2; // same reactants
 					if (rev == 1) {
@@ -829,21 +912,24 @@ void rxnoutput(simptr sim, int order) {
 					if (rparamt == RPconfspread)
 						bindrad = -1;
 					else if (rparamt == RPbounce)
-						bindrad = -1;
+						bindrad= -1;
 					else if (rparamt == RPunbindrad)
 						bindrad = bindingradius(rate3, 0, dsum, rparam, 0);
 					else if (rparamt == RPratio)
 						bindrad = bindingradius(rate3, 0, dsum, rparam, 1);
 					else if (rparamt == RPpgem || rparamt == RPpgemmax
 							|| rparamt == RPpgemmaxw)
-						bindrad = bindingradius(rate3 * (1.0 - rparam), 0,
+						bindrad= bindingradius(rate3 * (1.0 - rparam), 0,
 								dsum, -1, 0);
-					else
-						bindrad = bindingradius(rate3, 0, dsum, -1, 0);
-					if (bindrad >= 0)
+					else {
+						bindrad = bindingradius(rate3, 0, dsum, -1, 0); 
+					}
+					
+					if (bindrad>= 0)
 						printf("   binding radius if dt were 0: %g\n", bindrad);
+					
 					step = sqrt(2.0 * dsum * sim->dt);
-					ratio = step / sqrt(rxn->bindrad2[i][j]);
+					ratio = step / sqrt(rxn->bindrad2[i+1][j+1]);
 					printf("   mutual rms step length: %g\n", step);
 					printf(
 							"   step length / binding radius: %g (%s %s-limited)\n",
@@ -852,7 +938,7 @@ void rxnoutput(simptr sim, int order) {
 									: "diffusion");
 					printf(
 							"   effective activation limited reaction rate: %g\n",
-							actrxnrate(step, sqrt(rxn->bindrad2[i][j]))
+							actrxnrate(step, sqrt(rxn->bindrad2[i+1][j+1]))
 									/ sim->dt);
 				}
 			}
@@ -868,10 +954,14 @@ void rxnoutput(simptr sim, int order) {
 			printf("   product placement method and parameter: %s %g\n",
 					rxnrp2string(rxn->rparamt, string), rxn->rparam);
 		for (prd = 0; prd < rxn->nprod; prd++) {
-			if (dotVVD(rxn->prdpos[prd], rxn->prdpos[prd], dim) > 0) {
+			for(i=0;i<=sim->nrfs;i++){
+			  for(j=0;j<=sim->nrfs;j++){
+			    if (dotVVD(rxn->prdpos[i][j][prd], rxn->prdpos[i][j][prd], dim) > 0) {
 				printf("   product %s displacement: ",
 						sim->mols->spname[rxn->prdident[prd]]);
-				printVD(rxn->prdpos[prd], dim);
+				printVD(rxn->prdpos[i][j][prd], dim);
+			    }
+			  }
 			}
 		}
 
@@ -890,17 +980,17 @@ void rxnoutput(simptr sim, int order) {
 									rxn->prdstate[0], rxn->prdident[1],
 									rxn->prdstate[1], k, l);
 							step = sqrt(2.0 * sim->dt * dsum);
-							pgem = 1.0 - numrxnrate(step, sqrt(rxnr->bindrad2[k
+							rxn->pgemptr[k+1][l+1] = 1.0 - numrxnrate(step, sqrt(rxnr->bindrad2[k
 									+ 1][l + 1]), -1) / numrxnrate(step, sqrt(
 									rxnr->bindrad2[k + 1][l + 1]),
-									rxn->unbindrad[k + 1]);
+									rxn->unbindrad[k + 1][l + 1]);
 							rev = (rxnr->nprod == order);
 							rev = rev && Zn_sameset(rxnr->prdident,
 									rxn->rctident, identlist, order);
 							printf(
 									"   probability of geminate %s reaction '%s' is %g\n",
 									rev ? "reverse" : "continuation",
-									rxnr->rname, pgem);
+									rxnr->rname, rxn->pgemptr[k+1][l+1] );
 						}
 					}
 				}
@@ -913,8 +1003,8 @@ void rxnoutput(simptr sim, int order) {
 }
 
 /* writereactions.  Writes all information about all reactions to the file fptr
- using a format that can be read by Smoldyn.  This allows a simulation state to
- be saved. */
+using a format that can be read by Smoldyn.  This allows a simulation state to
+be saved. */
 void writereactions(simptr sim, FILE *fptr) {
 	int order, r, i, j, prd, d, rct;
 	rxnptr rxn;
@@ -962,53 +1052,59 @@ void writereactions(simptr sim, FILE *fptr) {
 					fprintf(fptr, " %g", rxn->rate);
 				fprintf(fptr, "\n");
 
-				if (order == 1 && rxn->rctstate[0] == MSsome) {
-					for (ms = 0; ms < MSMAX; ms++)
-						if (rxn->permit[ms])
+				
+				for (i = 0; i <= sim->nrfs; i++) {
+					for (j = 0; j <= sim->nrfs; j++) {
+					    if (order == 1 && rxn->rctstate[0] == MSsome) {
+					    for (ms = 0; ms < MSMAX; ms++)
+						    if (rxn->permit[ms])
 							fprintf(fptr, "reaction_permit %s %s\n",
 									rxn->rname, molms2string(ms, string));
-				}
-				else if (order == 2 && (rxn->rctstate[0] == MSsome
+					    }
+					    else if (order == 2 && (rxn->rctstate[0] == MSsome
 						|| rxn->rctstate[1] == MSsome)) {
-					for (ms1 = 0; ms1 < MSMAX1; ms1++)
-						for (ms2 = 0; ms2 < MSMAX1; ms2++)
-							if (rxn->permit[ms1 * MSMAX1 + ms2])
-								fprintf(fptr, "reaction_permit %s %s %s\n",
+					      for (ms1 = 0; ms1 < MSMAX1; ms1++) {
+						for (ms2 = 0; ms2 < MSMAX1; ms2++) {
+						    if (rxn->permit[ms1 * MSMAX1 + ms2]) {
+							fprintf(fptr, "reaction_permit %s %s %s\n",
 										rxn->rname, molms2string(ms1, string),
 										molms2string(ms2, string2));
-				}
+				
+						    }
+						}
+					      }
+					    }
 
-				if (rxn->rparamt == RPconfspread)
-					for (i = 0; i <= sim->nrfs; i++) {
-						for (j = 0; j <= sim->nrfs; j++) {
-							fprintf(fptr, "confspread_radius %s %g\n",
+					    if (rxn->rparamt == RPconfspread)
+						  fprintf(fptr, "confspread_radius %s %g\n",
 									rxn->rname, rxn->bindrad2[i][j] < 0 ? 0
 											: sqrt(rxn->bindrad2[i][j]));
-						}
-					}
-				if (rxn->rate < 0) {
-					if (order == 0 && rxn->prob >= 0)
-						fprintf(fptr, "reaction_production %s %g\n",
-								rxn->rname, rxn->prob);
-					else if (order == 1 && rxn->prob >= 0)
-						fprintf(fptr, "reaction_probability %s %g\n",
-								rxn->rname, rxn->prob);
-				}
-				else if (order == 2) {
-					for (i = 0; i <= sim->nrfs; i++) {
-						for (j = 0; j <= sim->nrfs; j++) {
-							if (rxn->bindrad2[i][j] >= 0)
+					    if (rxn->rate < 0) {
+						if (order == 0 && rxn->prob[i][j] >= 0)
+						    fprintf(fptr, "reaction_production %s %g\n",
+								rxn->rname, rxn->prob[i][j]);
+						else if (order == 1 && rxn->prob[i][j] >= 0)
+						    fprintf(fptr, "reaction_probability %s %g\n",
+							      rxn->rname, rxn->prob[i][j]);
+						
+					
+					    }
+					    else if (order == 2) {
+							if (rxn->bindrad2[i][j] >= 0) {
 								fprintf(fptr, "binding_radius %s %g\n",
 										rxn->rname, sqrt(rxn->bindrad2[i][j]));
-						}
-					}
-				}
-				if ((order == 2 && rxn->prob != 1 && rxn->rparamt
+							}
+					    }
+				
+					    if ((order == 2 && rxn->prob[i][j] != 1 && rxn->rparamt
 						!= RPconfspread) || (rxn->rparamt == RPconfspread
-						&& rxn->rate < 0))
-					fprintf(fptr, "reaction_probability %s %g\n", rxn->rname,
-							rxn->prob);
-
+						&& rxn->rate < 0)){
+					    fprintf(fptr, "reaction_probability %s %g\n", rxn->rname,
+							rxn->prob[i][j]);
+					    }
+				    }
+				}
+  
 				rparamt = rxn->rparamt;
 				if (rparamt == RPirrev)
 					fprintf(fptr, "product_placement %s irrev\n", rxn->rname);
@@ -1023,8 +1119,13 @@ void writereactions(simptr sim, FILE *fptr) {
 						fprintf(fptr, "product_placement %s %s %s\n",
 								rxn->rname, rxnrp2string(rparamt, string),
 								sim->mols->spname[rxn->prdident[prd]]);
-						for (d = 0; d < sim->dim; d++)
-							fprintf(fptr, " %g", rxn->prdpos[prd][d]);
+						for (d = 0; d < sim->dim; d++){
+						  for(i=0;i<sim->nrfs;i++){
+						    for(j=0;j<sim->nrfs;j++){
+							fprintf(fptr, " %g", rxn->prdpos[i][j][prd][d]);
+						    }
+						  }
+						}
 						fprintf(fptr, "\n");
 					}
 				}
@@ -1036,9 +1137,9 @@ void writereactions(simptr sim, FILE *fptr) {
 }
 
 /* checkrxnparams.  Checks some parameters of reactions to make sure that they
- are reasonable.  Prints warning messages to the display.  Returns the total
- number of errors and, if warnptr is not NULL, the number of warnings in warnptr.
- */
+are reasonable.  Prints warning messages to the display.  Returns the total
+number of errors and, if warnptr is not NULL, the number of warnings in warnptr.
+*/
 int checkrxnparams(simptr sim, int *warnptr) {
 	int d, dim, warn, error, i1, i2, j, nspecies, r, i, k, l, ct, j1, j2,
 			order, prd;
@@ -1241,9 +1342,11 @@ int checkrxnparams(simptr sim, int *warnptr) {
 
 	rxnss = sim->rxnss[0]; // order 0 reactions
 	if (rxnss)
-		for (r = 0; r < rxnss->totrxn; r++) {
-			rxn = rxnss->rxn[r];
-			if (rxn->prob < 0) {
+		for (k = 0; k <= sim->nrfs; k++) {
+		    for (l = 0; l <= sim->nrfs; l++) {
+			for (r = 0; r < rxnss->totrxn; r++) {
+			    rxn = rxnss->rxn[r];
+			    if (rxn->prob[k][l] < 0) {
 				printf(
 						" WARNING: reaction rate not set for reaction order 0, name %s\n",
 						rxn->rname);
@@ -1251,45 +1354,51 @@ int checkrxnparams(simptr sim, int *warnptr) {
 				warn++;
 			}
 		}
+				}
+		}
 
 	rxnss = sim->rxnss[1]; // order 1 reactions
+	
 	if (rxnss)
+	    for (k = 0; k <= sim->nrfs; k++) {
+	    for (l = 0; l <= sim->nrfs; l++) {
 		for (r = 0; r < rxnss->totrxn; r++) {
 			rxn = rxnss->rxn[r];
-			if (rxn->prob < 0) {
+			if (rxn->prob[k][l] < 0) {
 				printf(
 						" WARNING: reaction rate not set for reaction order 1, name %s\n",
 						rxn->rname);
-				rxn->prob = 0;
+				rxn->prob[k][l] = 0;
 				warn++;
 			}
-			else if (rxn->prob > 0 && rxn->prob < 10.0 / (double) RAND2_MAX) {
+			else if (rxn->prob[k][l] > 0 && rxn->prob[k][l] < 10.0 / (double) RAND2_MAX) {
 				printf(
 						" WARNING: order 1 reaction %s probability is at lower end of random number generator resolution\n",
 						rxn->rname);
 				warn++;
 			}
-			else if (rxn->prob > ((double) RAND2_MAX - 10.0)
-					/ (double) RAND2_MAX && rxn->prob < 1.0) {
+			else if (rxn->prob[k][l] > ((double) RAND2_MAX - 10.0)
+					/ (double) RAND2_MAX && rxn->prob[k][l] < 1.0) {
 				printf(
 						" WARNING: order 1 reaction %s probability is at upper end of random number generator resolution\n",
 						rxn->rname);
 				warn++;
 			}
-			else if (rxn->prob > 0.2) {
+			else if (rxn->prob[k][l] > 0.2) {
 				printf(
 						" WARNING: order 1 reaction %s probability is quite high\n",
 						rxn->rname);
 				warn++;
 			}
-			if (rxn->tau < 5 * sim->dt) {
-				printf(
-						" WARNING: order 1 reaction %s time constant is only %g times longer than the simulation time step\n",
-						rxn->rname, rxn->tau / sim->dt);
-				warn++;
+				    if (rxn->tau[k][l] < 5 * sim->dt) {
+					printf(
+						" WARNING: order 1 reaction %s time constant is only %g times longer than the simulation time step for surfaces %i x %i\n",
+						rxn->rname, rxn->tau[k][l] / sim->dt, k,l);
+					warn++;
+				    }
+				}
 			}
 		}
-
 	minboxsize = sim->boxs->size[0];
 	for (d = 1; d < dim; d++)
 		if (sim->boxs->size[d] < minboxsize)
@@ -1332,23 +1441,23 @@ int checkrxnparams(simptr sim, int *warnptr) {
 									rxn->rname, k, l);
 						error++;
 					}
-					if (rxn->prob < 0 || rxn->prob > 1) {
+					if (rxn->prob[k + 1][l + 1] < 0 || rxn->prob[k + 1][l + 1] > 1) {
 						printf(
 								" ERROR: reaction %s probability is not between 0 and 1\n",
 								rxn->rname);
 						error++;
 					}
-					else if (rxn->prob < 1 && rxn->rparamt != RPconfspread
+					else if (rxn->prob[k + 1][l + 1] < 1 && rxn->rparamt != RPconfspread
 							&& rxn->rparamt != RPbounce) {
 						printf(
 								" WARNING: reaction %s probability is not accounted for in rate calculation\n",
 								rxn->rname);
 						warn++;
 					}
-					if (rxn->tau < 5 * sim->dt) {
+					if (rxn->tau[k+1][l+1] < 5 * sim->dt) {
 						printf(
-								" WARNING: order 2 reaction %s time constant is only %g times longer than the simulation time step\n",
-								rxn->rname, rxn->tau / sim->dt);
+								" WARNING: order 2 reaction %s time constant is only %g times longer than the simulation time step for surfaces %i x %i\n",
+								rxn->rname, rxn->tau[k+1][l+1] / sim->dt, k+1, l+1);
 						warn++;
 					}
 				}
@@ -1402,7 +1511,7 @@ int checkrxnparams(simptr sim, int *warnptr) {
 /* rxnsetrate */
 int rxnsetrate(simptr sim, int order, int r, char *erstr) {
 	rxnssptr rxnss;
-	int i, j, i1, i2, rev, o2, r2, permit;
+	int i, j, i1, i2, rev, o2, r2, permit, k,l;
 	rxnptr rxn, rxn2;
 	double vol, sum[MSMAX], sum2, rate3, dsum, rparam, unbindrad;
 	enum MolecState ms, ms1, ms2, statelist[MAXORDER];
@@ -1419,10 +1528,17 @@ int rxnsetrate(simptr sim, int order, int r, char *erstr) {
 					"confspread reaction has a different number of reactants and products");
 			return 3;
 		}
-		if (rxn->rate >= 0)
-			rxn->prob = 1.0 - exp(-sim->dt * rxn->rate);
+		if (rxn->rate >= 0) {
+			for(i=0;i<=sim->nrfs;i++){
+			  for(j=0;j<=sim->nrfs;j++) {
+			    rxn->prob[i][j] = 1.0 - exp(-sim->dt * rxn->rate);
+	
+			    
+			  }
+			}
+		}
 	}
-
+	//Chr: Fucked up anyway?
 	else if (order == 0) { // order 0
 		if (rxn->rate < 0)
 			return 1;
@@ -1432,7 +1548,11 @@ int rxnsetrate(simptr sim, int order, int r, char *erstr) {
 			vol = surfacearea(rxn->srf, sim->dim, NULL);
 		else
 			vol = systemvolume(sim);
-		rxn->prob = rxn->rate * sim->dt * vol;
+		for(i=0;i<=sim->nrfs;i++){
+			  for(j=0;j<=sim->nrfs;j++) {
+			      rxn->prob[i][j] = rxn->rate * sim->dt * vol;
+			  }
+		}
 	}
 
 	else if (order == 1) { // order 1
@@ -1448,35 +1568,39 @@ int rxnsetrate(simptr sim, int order, int r, char *erstr) {
 			}
 		}
 
-		if (rxn->rate == 0)
-			rxn->prob = 0;
-		else {
-			sum2 = 0;
-			for (ms = 0; ms < MSMAX; ms++) {
-				if (rxn->permit[ms] && sum2 == 0)
+		for(k=0;k<=sim->nrfs;k++){
+			  for(l=0;l<=sim->nrfs;l++) {
+			    if (rxn->rate == 0)
+			      rxn->prob[k][l] = 0;
+			    else {
+			      sum2 = 0;
+				  for (ms = 0; ms < MSMAX; ms++) {
+				    if (rxn->permit[ms] && sum2 == 0)
 					sum2 = sum[ms];
-				else if (rxn->permit[ms] && sum2 != sum[ms]) {
+				    else if (rxn->permit[ms] && sum2 != sum[ms]) {
 					sprintf(
 							erstr,
 							"cannot assign reaction probability because different values are needed for different states");
 					return 2;
-				}
-			}
+				    }
+				  }
 			if (sum2 > 0)
-				rxn->prob = rxn->rate / sum2 * (1.0 - exp(-sim->dt * sum2)); // desired probability
+				rxn->prob[k][l] = rxn->rate / sum2 * (1.0 - exp(-sim->dt * sum2)); // desired probability
 			sum2 = 0;
 			for (j = 0; j < rxnss->nrxn[i]; j++) {
 				rxn2 = rxnss->rxn[rxnss->table[i][j]];
 				if (rxn2 == rxn)
 					j = rxnss->nrxn[i];
 				else
-					sum2 += rxn2->prob;
+					sum2 += rxn2->prob[k][l];
 			}
-			rxn->prob = rxn->prob / (1.0 - sum2);
+			rxn->prob[k][l] = rxn->prob[k][l] / (1.0 - sum2);
+			    }
+			  }
 		} // probability, accounting for prior reactions
 
 		rev = findreverserxn(sim, 1, r, &o2, &r2);
-		if (rev > 0 && o2 == 2) {
+		if (rev > 0 && o2 == 2) { 
 			if (rxn->rparamt == RPnone) {
 				rxn->rparamt = RPpgemmaxw;
 				rxn->rparam = 0.2;
@@ -1485,9 +1609,11 @@ int rxnsetrate(simptr sim, int order, int r, char *erstr) {
 	}
 
 	else if (order == 2) { // order 2
+	    for(i=-1;i<sim->nrfs;i++){
+	      for(j=-1;j<sim->nrfs;j++) {
 		if (rxn->rate < 0) {
-			if (rxn->prob < 0)
-				rxn->prob = 1;
+			if (rxn->prob[i+1][j+1] < 0)
+				rxn->prob[i+1][j+1] = 1;
 			return 1;
 		}
 		i1 = rxn->rctident[0];
@@ -1517,12 +1643,10 @@ int rxnsetrate(simptr sim, int order, int r, char *erstr) {
 			rparamt = RPnone;
 			rparam = 0;
 		}
-
-		for (i = -1; i < rxnss->sim->nrfs; i++) {
-			for (j = -1; j < rxnss->sim->nrfs; j++) {
-				dsum = MolCalcDifcSum(sim, i1, ms1, i2, ms2, i, j); //for i,j=-1 default (no surface)
-				if (rxn->prob < 0)
-					rxn->prob = 1;
+		//int count=0; 
+				dsum = MolCalcDifcSum(sim, i1, ms1, i2, ms2, i, j); //for i,j=-1 default (no surface) 
+				if (rxn->prob[i+1][j+1] < 0)
+					rxn->prob[i+1][j+1] = 1;
 				if (!permit)
 					rxn->bindrad2[i + 1][j + 1] = 0;
 				else if (rate3 <= 0)
@@ -1530,6 +1654,7 @@ int rxnsetrate(simptr sim, int order, int r, char *erstr) {
 				else if (dsum <= 0) {
 					sprintf(erstr, "Both diffusion coefficients are 0");
 					return 4;
+					//count=count+=1;
 				}
 				else if (rparamt == RPunbindrad)
 					rxn->bindrad2[i + 1][j + 1] = bindingradius(rate3, sim->dt,
@@ -1556,9 +1681,14 @@ int rxnsetrate(simptr sim, int order, int r, char *erstr) {
 					rxn->bindrad2[i + 1][j + 1] = bindingradius(rate3, sim->dt,
 							dsum, -1, 0);
 
-				rxn->bindrad2[i + 1][j + 1] *= rxn->bindrad2[i + 1][j + 1];
+				rxn->bindrad2[i + 1][j + 1] *= rxn->bindrad2[i + 1][j + 1]; 
 			}
 		}
+		
+		//if(count==(rxnss->sim->nrfs*rxnss->sim->nrfs)) {
+		//   sprintf(erstr, "All diffusion coefficient combinations are 0");
+		//			return 4;
+		//}
 	}
 
 	return 0;
@@ -1591,7 +1721,7 @@ int rxnsetproduct(simptr sim, int order, int r, char *erstr) {
 	rxnssptr rxnss;
 	rxnptr rxn, rxnr;
 	int er, nprod, orderr, rr, rev, i, j;
-	double rpar, rpar_i, dc1, dc2, dsum, bindradr;
+	double rpar, dc1, dc2, dsum, bindradr;
 	enum RevParam rparamt;
 	enum MolecState ms1, ms2;
 
@@ -1601,7 +1731,6 @@ int rxnsetproduct(simptr sim, int order, int r, char *erstr) {
 	rpar = rxn->rparam;
 	rparamt = rxn->rparamt;
 	er = 0;
-
 
 	if (nprod == 0) {
 		if (!(rparamt == RPnone || rparamt == RPirrev)) {
@@ -1633,6 +1762,8 @@ int rxnsetproduct(simptr sim, int order, int r, char *erstr) {
 		//Christine: Has to be done for differnet surfaces as well
 		for (i = -1; i < rxnss->sim->nrfs; i++) {
 			for (j = -1; j < rxnss->sim->nrfs; j++) {
+				rpar = rxn->rparam;
+				rparamt = rxn->rparamt;
 				dc1 = MolCalcDifcSum(sim, rxn->prdident[0], ms1, 0, 0, i, j);
 				dc2 = MolCalcDifcSum(sim, rxn->prdident[1], ms2, 0, 0, i, j);
 				dsum = dc1 + dc2;
@@ -1649,19 +1780,19 @@ int rxnsetproduct(simptr sim, int order, int r, char *erstr) {
 					else if (rparamt == RPunbindrad) {
 						if (dsum == 0)
 							dsum = (dc1 = 1.0) + (dc2 = 1.0);
-						rxn->unbindrad[i + 1] = rpar;
-						rxn->prdpos[0][0] = rpar * dc1 / dsum;
-						rxn->prdpos[1][0] = -rpar * dc2 / dsum;
+						rxn->unbindrad[i + 1][j + 1] = rpar;
+						rxn->prdpos[i+1][j+1][0][0] = rpar * dc1 / dsum;
+						rxn->prdpos[i+1][j+1][1][0] = -rpar * dc2 / dsum;
 					}
 					else if (rparamt == RPbounce) {
-						rxn->unbindrad[i + 1] = rpar;
-						rxn->prdpos[0][0] = 0;
-						rxn->prdpos[1][0] = rpar;
+						rxn->unbindrad[i + 1][j + 1] = rpar;
+						rxn->prdpos[i+1][j+1][0][0] = 0;
+						rxn->prdpos[i+1][j+1][1][0] = rpar;
 					}
 				}
 				else {
 					rxnr = sim->rxnss[orderr]->rxn[rr];
-					if (rxnr->bindrad2[i + 1][j + 1])
+					if (rxnr->bindrad2[i + 1][j + 1]>=0)
 						bindradr = sqrt(rxnr->bindrad2[i + 1][j + 1]);
 					else
 						bindradr = -1;
@@ -1677,14 +1808,14 @@ int rxnsetproduct(simptr sim, int order, int r, char *erstr) {
 						er = 5;
 					}
 					else if (rparamt == RPunbindrad) {
-						rxn->unbindrad[i + 1] = rpar;
-						rxn->prdpos[0][0] = rpar * dc1 / dsum;
-						rxn->prdpos[1][0] = -rpar * dc2 / dsum;
+						rxn->unbindrad[i + 1][j + 1] = rpar;
+						rxn->prdpos[i+1][j+1][0][0] = rpar * dc1 / dsum;
+						rxn->prdpos[i+1][j+1][1][0] = -rpar * dc2 / dsum;
 					}
 					else if (rparamt == RPbounce) {
-						rxn->unbindrad[i + 1] = rpar;
-						rxn->prdpos[0][0] = rpar * dc1 / dsum;
-						rxn->prdpos[1][0] = -rpar * dc2 / dsum;
+						rxn->unbindrad[i + 1][j + 1] = rpar;
+						rxn->prdpos[i+1][j+1][0][0] = rpar * dc1 / dsum;
+						rxn->prdpos[i+1][j+1][1][0] = -rpar * dc2 / dsum;
 					}
 					else if (rxnr->bindrad2[i + 1][j + 1] < 0) {
 						sprintf(erstr,
@@ -1692,18 +1823,18 @@ int rxnsetproduct(simptr sim, int order, int r, char *erstr) {
 						er = 6;
 					}
 					else if (rparamt == RPratio || rparamt == RPratio2) {
-						rxn->unbindrad[i + 1] = rpar * bindradr;
-						rxn->prdpos[0][0] = rpar * bindradr * dc1 / dsum;
-						rxn->prdpos[1][0] = -rpar * bindradr * dc2 / dsum;
+						rxn->unbindrad[i + 1][j + 1] = rpar * bindradr;
+						rxn->prdpos[i+1][j+1][0][0] = rpar * bindradr * dc1 / dsum;
+						rxn->prdpos[i+1][j+1][1][0] = -rpar * bindradr * dc2 / dsum;
 					}
 					else if (rparamt == RPpgem || rparamt == RPpgem2) {
-						rpar_i = unbindingradius(rpar, sim->dt, dsum, bindradr);
-						if (rpar_i == -2) {
+						rpar= unbindingradius(rpar, sim->dt, dsum, bindradr);
+						if (rpar == -2) {
 							sprintf(erstr,
 									"Cannot create an unbinding radius due to illegal input values");
 							er = 7;
 						}
-						else if (rpar_i < 0) {
+						else if (rpar < 0) {
 							sprintf(
 									erstr,
 									"Maximum possible geminate binding probability is %g",
@@ -1711,28 +1842,32 @@ int rxnsetproduct(simptr sim, int order, int r, char *erstr) {
 							er = 8;
 						}
 						else {
-							rxn->unbindrad[i + 1] = rpar;
-							rxn->prdpos[0][0] = rpar * dc1 / dsum;
-							rxn->prdpos[1][0] = -rpar * dc2 / dsum;
+							rxn->unbindrad[i + 1][j + 1] = rpar;
+							rxn->prdpos[i+1][j+1][0][0] = rpar * dc1 / dsum;
+							rxn->prdpos[i+1][j+1][1][0] = -rpar * dc2 / dsum;
 						}
 					}
 					else if (rparamt == RPpgemmax || rparamt == RPpgemmaxw
-							|| rparamt == RPpgemmax2) {
-						rpar_i = unbindingradius(rpar, sim->dt, dsum, bindradr);
-						if (rpar_i == -2) {
+							|| rparamt == RPpgemmax2) { 
+						rpar = unbindingradius(rpar, sim->dt, dsum, bindradr);  
+						if (rpar == -2) {
 							sprintf(erstr, "Illegal input values");
 							er = 9;
 						}
-						else if (rpar_i <= 0) {
-							rxn->unbindrad[i + 1] = 0;
+						else if (rpar <= 0) {
+							rxn->unbindrad[i + 1][j + 1] = 0;
 						}
-						else if (rpar_i > 0) {
-							rxn->unbindrad[i + 1] = rpar;
-							rxn->prdpos[0][0] = rpar * dc1 / dsum;
-							rxn->prdpos[1][0] = -rpar * dc2 / dsum;
+						else if (rpar > 0) {
+							rxn->unbindrad[i + 1][j + 1] = rpar;
+							rxn->prdpos[i+1][j+1][0][0] = rpar * dc1 / dsum;
+							rxn->prdpos[i+1][j+1][1][0] = -rpar * dc2 / dsum;
 						}
+						
 					}
+					printf("unbind: %f\n", rxn->unbindrad[i+1][j+1]);
+					
 				}
+				
 			}
 		}
 	}
@@ -1760,29 +1895,31 @@ int rxnsetproducts(simptr sim, int order, char *erstr) {
 }
 
 /* rxncalcrate.  Calculates the macroscopic rate constant using the microscopic
- parameters that are stored in the reaction data structure.  All going well,
- these results should exactly match those that were requested initially, although
- this routine is useful as a check, and for situations where the microscopic
- values were input rather than the mass action rate constants.  For bimolecular
- reactions that are reversible, the routine calculates rates with accounting for
- reversibility if the reversible parameter type of the reverse reaction is
- RPpgem, RPpgemmax, RPratio, RPoffset, or RPnone, and not otherwise.  A value of
- -1 is returned if input parameters are illegal and a value of 0 is returned if
- the microscopic values for the indicated reaction are undefined (<0).  If the
- input reaction has a reverse reaction or a continuation reaction, and ptr is
- not input as NULL, then *pgemptr is set to the probability of geminate
- recombination of the products; if there is no reverse or continuation reaction,
- its value is set to -1. */
-double rxncalcrate(simptr sim, int order, int r, double *pgemptr) {
+parameters that are stored in the reaction data structure.  All going well,
+these results should exactly match those that were requested initially, although
+this routine is useful as a check, and for situations where the microscopic
+values were input rather than the mass action rate constants.  For bimolecular
+reactions that are reversible, the routine calculates rates with accounting for
+reversibility if the reversible parameter type of the reverse reaction is
+RPpgem, RPpgemmax, RPratio, RPoffset, or RPnone, and not otherwise.  A value of
+-1 is returned if input parameters are illegal and a value of 0 is returned if
+the microscopic values for the indicated reaction are undefined (<0).  If the
+input reaction has a reverse reaction or a continuation reaction, and ptr is
+not input as NULL, then *pgemptr is set to the probability of geminate
+recombination of the products; if there is no reverse or continuation reaction,
+its value is set to -1. */
+//Chr: k and l, surface indices, start from -1 for the nosurface option
+double rxncalcrate(simptr sim, int order, int r, double *pgptr, int k, int l) { 
+        printf("k: %i, l %i\n", k, l);
 	rxnssptr rxnss;
-	double ans, vol;
-	int i1, i2, i, j, k, l, r2, rev, o2, permit, found;
+	double ans, vol; 
+	int i1, i2, i, j, r2, rev, o2, permit, found;
 	double sum, sum2, flt2, step, a, bval;
 	rxnptr rxn, rxnr;
 	enum MolecState ms1, ms2, statelist[MAXORDER];
 	enum RevParam rparamt;
 	ans = -1;
-
+	
 	if (!sim)
 		return -1;
 	rxnss = sim->rxnss[order];
@@ -1790,6 +1927,7 @@ double rxncalcrate(simptr sim, int order, int r, double *pgemptr) {
 		return -1;
 	rxn = rxnss->rxn[r];
 
+	
 	if (order == 0) { // order 0
 		if (rxn->cmpt)
 			vol = rxn->cmpt->volume;
@@ -1797,14 +1935,14 @@ double rxncalcrate(simptr sim, int order, int r, double *pgemptr) {
 			vol = surfacearea(rxn->srf, sim->dim, NULL);
 		else
 			vol = systemvolume(sim);
-		if (rxn->prob < 0)
+		if (rxn->prob[k+1][l+1] < 0)
 			ans = 0;
 		else
-			ans = rxn->prob / sim->dt / vol;
+			ans = rxn->prob[k+1][l+1] / sim->dt / vol;
 	}
 
 	else if (order == 1) { // order 1
-		if (rxn->prob < 0)
+		if (rxn->prob[k+1][l+1] < 0)
 			ans = 0;
 		else {
 			i1 = rxn->rctident[0];
@@ -1815,20 +1953,18 @@ double rxncalcrate(simptr sim, int order, int r, double *pgemptr) {
 				if (r2 == r)
 					found = 1;
 				else if (!found)
-					sum2 += rxnss->rxn[r2]->prob >= 0 ? rxnss->rxn[r2]->prob
+					sum2 += rxnss->rxn[r2]->prob[k+1][l+1] >= 0 ? rxnss->rxn[r2]->prob[k+1][l+1]
 							* (1.0 - sum2) : 0;
-				sum += rxnss->rxn[r2]->prob >= 0 ? rxnss->rxn[r2]->prob * (1.0
+				sum += rxnss->rxn[r2]->prob[k+1][l+1] >= 0 ? rxnss->rxn[r2]->prob[k+1][l+1] * (1.0
 						- sum) : 0;
 			}
 			flt2 = -log(1.0 - sum) / sim->dt;
-			ans = rxn->prob > 0 ? rxn->prob * (1.0 - sum2) / sum * flt2 : 0;
+		      ans = rxn->prob[k+1][l+1] > 0 ? rxn->prob[k+1][l+1] * (1.0 - sum2) / sum * flt2 : 0;
 		}
 	}
-
+	
 	else if (order == 2) { // order 2
-		for (k = 0; k <= rxnss->sim->nrfs; k++) {
-			for (l = 0; l <= rxnss->sim->nrfs; l++) {
-				if (rxn->bindrad2[k][l] < 0 || rxn->prob < 0)
+				if (rxn->bindrad2[k+1][l+1] < 0 || rxn->prob[k+1][l+1] < 0)
 					ans = 0;
 				else {
 					i1 = rxn->rctident[0];
@@ -1844,10 +1980,10 @@ double rxncalcrate(simptr sim, int order, int r, double *pgemptr) {
 					if (!permit)
 						return 0;
 					if (rxn->rparamt == RPconfspread)
-						return -log(1.0 - rxn->prob) / sim->dt;
+						return -log(1.0 - rxn->prob[k+1][l+1]) / sim->dt;
 					step = sqrt(2.0 * MolCalcDifcSum(sim, i1, ms1, i2, ms2, k
-							- 1, l - 1) * sim->dt);
-					a = sqrt(rxn->bindrad2[k][l]);
+							, l) * sim->dt);
+					a = sqrt(rxn->bindrad2[k+1][l+1]);
 					rev = findreverserxn(sim, order, r, &o2, &r2);
 					if (rev == 1)
 						rparamt = sim->rxnss[o2]->rxn[r2]->rparamt;
@@ -1858,7 +1994,7 @@ double rxncalcrate(simptr sim, int order, int r, double *pgemptr) {
 							== RPratio || rparamt == RPoffset || rparamt
 							== RPfixed) {
 						rxnr = sim->rxnss[o2]->rxn[r2];
-						bval = distanceVVD(rxnr->prdpos[0], rxnr->prdpos[1],
+						bval = distanceVVD(rxnr->prdpos[k+1][l+1][0], rxnr->prdpos[k+1][l+1][1],
 								sim->dim);
 						ans = numrxnrate(step, a, bval);
 					}
@@ -1869,46 +2005,51 @@ double rxncalcrate(simptr sim, int order, int r, double *pgemptr) {
 						ans /= 2.0;
 					if (!rxn->permit[MSsoln * MSMAX1 + MSsoln])
 						ans /= 2.0;
-				}
-			}
+				
+			
 		}
 	}
 
 	else
 		ans = 0;
-
-	if (pgemptr) {
-		if (rxn->nprod != 2 || findreverserxn(sim, order, r, &o2, &r2) == 0)
-			*pgemptr = -1;
-		else {
-			//Chr: Doing this for solution to solution only, seems to be mainly for output only anyway
-			step = sqrt(2.0 * MolCalcDifcSum(sim, rxn->prdident[0],
-					rxn->prdstate[0], rxn->prdident[1], rxn->prdstate[1], 0, 0)
-					* sim->dt);
-			bval = distanceVVD(rxn->prdpos[0], rxn->prdpos[1], sim->dim);
-			rxnr = sim->rxnss[o2]->rxn[r2];
-			a = sqrt(rxnr->bindrad2[0][0]);
-			*pgemptr = 1.0 - numrxnrate(step, a, -1)
-					/ numrxnrate(step, a, bval);
+	
+	if (pgptr) 
+	{ 
+		if (rxn->nprod != 2 || findreverserxn(sim, order, r, &o2, &r2) == 0){
+			*pgptr= -1;  
 		}
+		else
+		{  
+			step = sqrt(2.0 * MolCalcDifcSum(sim, rxn->prdident[0],
+			rxn->prdstate[0], rxn->prdident[1], rxn->prdstate[1], k, l)
+				* sim->dt); 
+			bval = distanceVVD(rxn->prdpos[k+1][l+1][0], rxn->prdpos[k+1][l+1][1], sim->dim);
+			rxnr = sim->rxnss[o2]->rxn[r2];
+			a = sqrt(rxnr->bindrad2[k+1][l+1]);
+			*pgptr = 1.0 - numrxnrate(step, a, -1)
+						    / numrxnrate(step, a, bval); 
+					
+		}
+			
+		
 	}
 
 	return ans;
 }
 
 /* rxncalctau.  Calculates characteristic times for all reactions of order order
- and stores them in the rxn->tau structure elements.  These are ignored for 0th
- order reactions, are 1/k for first order reactions, are are [A][B]/[k([A]+[B])]
- for second order reactions.  The actual calculated rate constant is used, not
- the requested ones.  For second order, the current average concentrations are
- used, which does not capture effects from spatial localization or concentration
- changes.  For bimolecular reactions, if multiple reactant pairs map to the same
- reaction, only the latter ones found are recorded.  Also, all molecule states
- are counted, which ignores the permit reaction structure element. */
+and stores them in the rxn->tau structure elements.  These are ignored for 0th
+order reactions, are 1/k for first order reactions, are are [A][B]/[k([A]+[B])]
+for second order reactions.  The actual calculated rate constant is used, not
+the requested ones.  For second order, the current average concentrations are
+used, which does not capture effects from spatial localization or concentration
+changes.  For bimolecular reactions, if multiple reactant pairs map to the same
+reaction, only the latter ones found are recorded.  Also, all molecule states
+are counted, which ignores the permit reaction structure element. */
 void rxncalctau(simptr sim, int order) {
 	rxnssptr rxnss;
 	rxnptr rxn;
-	int r;
+	int r,i,j;
 	double rate, vol, conc1, conc2;
 
 	rxnss = sim->rxnss[order];
@@ -1918,8 +2059,12 @@ void rxncalctau(simptr sim, int order) {
 	if (order == 1) {
 		for (r = 0; r < rxnss->totrxn; r++) {
 			rxn = rxnss->rxn[r];
-			rate = rxncalcrate(sim, 1, r, NULL);
-			rxn->tau = 1.0 / rate;
+			for(i=0;i<=sim->srfss->nsrf;i++){
+			    for(j=0;j<=sim->srfss->nsrf;j++){
+				rate = rxncalcrate(sim, 1, r, NULL, i-1,j-1);
+				rxn->tau[i][j] = 1.0 / rate;
+			    }
+			}
 		}
 	}
 
@@ -1931,11 +2076,16 @@ void rxncalctau(simptr sim, int order) {
 					/ vol;
 			conc2 = (double) molcount(sim, rxn->rctident[1], MSall, NULL, -1)
 					/ vol;
-			rate = rxncalcrate(sim, 2, r, NULL);
-			if (rxn->rparamt == RPconfspread)
-				rxn->tau = 1.0 / rate;
+			
+			for(i=0;i<=sim->srfss->nsrf;i++){
+			    for(j=0;j<=sim->srfss->nsrf;j++){
+				rate = rxncalcrate(sim, 2, r, NULL,i-1,j-1);
+				if (rxn->rparamt == RPconfspread)
+				    rxn->tau[i][j] = 1.0 / rate;
 			else
-				rxn->tau = (conc1 + conc2) / (rate * conc1 * conc2);
+				rxn->tau[i][j] = (conc1 + conc2) / (rate * conc1 * conc2);
+			    }
+			}
 		}
 	}
 
@@ -1943,9 +2093,9 @@ void rxncalctau(simptr sim, int order) {
 }
 
 /* rxnsettimestep.  Sets reaction structure parameters for the simulation time
- step.  Return values are 0 for success, 1 for an error with setting either rates
- or products (and output to stderr with an error message), or 2 if the reaction
- structure was not sufficiently set up beforehand. */
+step.  Return values are 0 for success, 1 for an error with setting either rates
+or products (and output to stderr with an error message), or 2 if the reaction
+structure was not sufficiently set up beforehand. */
 int rxnsettimestep(simptr sim) {
 	int er, order, wflag;
 	char errorstr[STRCHAR];
@@ -2083,7 +2233,7 @@ int rxnsetmollist(simptr sim, int order) {
 			i1 = rxn->rctident[0];
 			if (order == 1) {
 				for (ms1 = 0; ms1 < MSMAX1; ms1++)
-					if (rxn->permit[ms1] && (rxn->prob > 0 || rxn->rate > 0)) {
+					if (rxn->permit[ms1] && (rxn->prob[0][0] > 0 || rxn->rate > 0)) {
 						ll1 = sim->mols->listlookup[i1][ms1];
 						rxnss->rxnmollist[ll1] = 1;
 					}
@@ -2093,7 +2243,7 @@ int rxnsetmollist(simptr sim, int order) {
 				for (ms1 = 0; ms1 < MSMAX1; ms1++)
 					for (ms2 = 0; ms2 < MSMAX1; ms2++)
 						//default binding radius should be above zero in any case
-						if (rxn->permit[ms1 * MSMAX1 + ms2] && rxn->prob != 0
+						if (rxn->permit[ms1 * MSMAX1 + ms2] && rxn->prob[0][0] != 0
 								&& (rxn->rate > 0 || rxn->bindrad2[0][0] > 0)) {
 							ll1
 									= sim->mols->listlookup[i1][ms1 == MSbsoln ? MSsoln
@@ -2113,66 +2263,70 @@ int rxnsetmollist(simptr sim, int order) {
 }
 
 /* RxnSetValue.  Sets certain options of the reaction structure for reaction
- rxn to value.  Returns 0 for success, 1 for missing input item, 2 for unknown
- option, 3 for a value that was set previously, or 4 for an illegal value (e.g.
- a negative rate).  In most cases, the value is set as requested, despite the
- error message.  If option is "rate", the rate element is set; if option is
- "confspreadrad", the reaction is made confspread and the squared binding radius is
- set. */
+rxn to value.  Returns 0 for success, 1 for missing input item, 2 for unknown
+option, 3 for a value that was set previously, or 4 for an illegal value (e.g.
+a negative rate).  In most cases, the value is set as requested, despite the
+error message.  If option is "rate", the rate element is set; if option is
+"confspreadrad", the reaction is made confspread and the squared binding radius is
+set. */
 int RxnSetValue(simptr sim, char *option, rxnptr rxn, double value) {
-	int er;
-
+	int er, k , l; 
 	er = 0;
-	if (!rxn || !option)
-		er = 1;
-	else if (!strcmp(option, "rate")) {
-		if (rxn->rate != -1)
+	for (k = 0; k <= sim->nrfs; k++) {
+		for(l = 0; l<=sim->nrfs; l++) {
+		    if (!rxn || !option)
+			er = 1;
+		    else if (!strcmp(option, "rate")) {
+		    if (rxn->rate != -1)
 			er = 3;
-		if (value < 0)
+		    if (value < 0)
 			er = 4;
-		rxn->rate = value;
+			rxn->rate = value;
+		    }
+		    else if (!strcmp(option, "confspreadrad")) {
+			if (rxn->rparamt == RPconfspread)
+			  er = 3;
+			  rxn->rparamt = RPconfspread;
+			if (value < 0)
+			    er = 4;
+			    rxn->bindrad2[k][l] = value * value;
+		    }
+	
+		    else if (!strcmp(option, "bindrad")) {
+			if (rxn->rparamt == RPconfspread)
+			  er = 3;
+			if (value < 0)
+			  er = 4;
+			  rxn->bindrad2[k][l] = value * value;
+			
+		    }
+		    else if (!strcmp(option, "prob")) {
+		      if (value < 0)
+			er = 4;
+			if (rxn->rxnss->order > 0 && value > 1)
+			  er = 4;
+			rxn->prob[k][l] = value;
+		    }
+		    else
+			er = 2; 
+		}
 	}
-	else if (!strcmp(option, "confspreadrad")) {
-		if (rxn->rparamt == RPconfspread)
-			er = 3;
-		rxn->rparamt = RPconfspread;
-		if (value < 0)
-			er = 4;
-		//also only doing that for the default bindrad
-		rxn->bindrad2[0][0] = value * value;
-	}
-	else if (!strcmp(option, "bindrad")) {
-		if (rxn->rparamt == RPconfspread)
-			er = 3;
-		if (value < 0)
-			er = 4;
-		rxn->bindrad2[0][0] = value * value;
-	}
-	else if (!strcmp(option, "prob")) {
-		if (value < 0)
-			er = 4;
-		if (rxn->rxnss->order > 0 && value > 1)
-			er = 4;
-		rxn->prob = value;
-	}
-	else
-		er = 2;
 	rxnsetcondition(sim, -1, SCparams, 0);
 	return er;
 }
 
 /* RxnSetRevparam.  Sets the reversible parameter type and the appropriate
- reversible parameters for reaction rxn.  The parameter type, rxn->paramt, is set
- to rparamt.  If rparamt requires a single value, which is stored in rxn->rparam, it
- is sent in with rparam.  Otherwise, for fixed and offset parameter types, send
- in the product number that is being altered with prd, the vector with pos, and
- the system dimensionality with dim.  This returns 0 for success, 1 as a warning
- that the reversible parameter type has been set before (except for offset and
- fixed types, where many different products need to be set), or 2 for parameters
- that are out of bounds. */
+reversible parameters for reaction rxn.  The parameter type, rxn->paramt, is set
+to rparamt.  If rparamt requires a single value, which is stored in rxn->rparam, it
+is sent in with rparam.  Otherwise, for fixed and offset parameter types, send
+in the product number that is being altered with prd, the vector with pos, and
+the system dimensionality with dim.  This returns 0 for success, 1 as a warning
+that the reversible parameter type has been set before (except for offset and
+fixed types, where many different products need to be set), or 2 for parameters
+that are out of bounds. */
 int RxnSetRevparam(simptr sim, rxnptr rxn, enum RevParam rparamt,
 		double rparam, int prd, double *pos, int dim) {
-	int d, er;
+	int d, er, sf1, sf2;
 
 	er = 0;
 	if (rxn->rparamt != RPnone)
@@ -2193,18 +2347,22 @@ int RxnSetRevparam(simptr sim, rxnptr rxn, enum RevParam rparamt,
 	}
 	else if (rparamt == RPoffset || rparamt == RPfixed) {
 		for (d = 0; d < dim; d++)
-			rxn->prdpos[prd][d] = pos[d];
+			for(sf1=0;sf1<sim->nrfs;sf1++){
+			  for(sf2=0;sf2<sim->nrfs;sf2++){
+			    rxn->prdpos[sf1][sf2][prd][d] = pos[d];
+			  }
+			}
 	}
 	rxnsetcondition(sim, -1, SCparams, 0);
 	return er;
 }
 
 /* RxnSetPermit.  Sets the permit element of reaction rxn, which has order
- order, for the states that are included in rctstate to value value.  value
- should be 0 to set permissions to forbidden or 1 to set permissions to
- permitted.  Each item of rctstate may be an individual state or may be MSall.
- Other values are not allowed (and are not caught here).  This does not affect
- other permit elements. */
+order, for the states that are included in rctstate to value value.  value
+should be 0 to set permissions to forbidden or 1 to set permissions to
+permitted.  Each item of rctstate may be an individual state or may be MSall.
+Other values are not allowed (and are not caught here).  This does not affect
+other permit elements. */
 void RxnSetPermit(simptr sim, rxnptr rxn, int order, enum MolecState *rctstate,
 		int value) {
 	enum MolecState ms, nms2o, mslist[MSMAX1];
@@ -2232,19 +2390,19 @@ void RxnSetPermit(simptr sim, rxnptr rxn, int order, enum MolecState *rctstate,
 		recurse = 0;
 	}
 
-	rxnsetcondition(sim, -1, SCparams, 0);
+// 	rxnsetcondition(sim, -1, SCparams, 0);
 	surfsetcondition(sim->srfss, SClists, 0);
 	return;
 }
 
 /* RxnAddReaction.  Adds a reaction to the simulation, including all necessary
- memory allocation.  rname is the name of the reaction, order is the order of the
- reaction, and nprod is the number of products.  rctident and rctstate are
- vectors of size order that contain the reactant identities and states,
- respectively.  Likewise, prdident and prdstate are vectors of size nprod that
- contain the product identities and states.  This returns the just added reaction
- for success and NULL for inability to allocate memory.  This allocates reaction
- superstuctures and reaction structures, and will enlarge any array, as needed. */
+memory allocation.  rname is the name of the reaction, order is the order of the
+reaction, and nprod is the number of products.  rctident and rctstate are
+vectors of size order that contain the reactant identities and states,
+respectively.  Likewise, prdident and prdstate are vectors of size nprod that
+contain the product identities and states.  This returns the just added reaction
+for success and NULL for inability to allocate memory.  This allocates reaction
+superstuctures and reaction structures, and will enlarge any array, as needed. */
 rxnptr RxnAddReaction(simptr sim, char *rname, int order, int *rctident,
 		enum MolecState *rctstate, int nprod, int *prdident,
 		enum MolecState *prdstate, compartptr cmpt, surfaceptr srf) {
@@ -2253,7 +2411,7 @@ rxnptr RxnAddReaction(simptr sim, char *rname, int order, int *rctident,
 	int *newtable, identlist[MAXORDER];
 	rxnssptr rxnss;
 	rxnptr rxn;
-	int maxrxn, maxspecies, i, j, r, rct, prd, d, k, done, freerxn;
+	int maxrxn, maxspecies, i, j, r, rct, prd, d, k, done, freerxn, ns, ns2;
 
 	rxnss = NULL;
 	rxn = NULL;
@@ -2327,15 +2485,28 @@ rxnptr RxnAddReaction(simptr sim, char *rname, int order, int *rctident,
 	rxn->nprod=nprod; // set up products
 	if(nprod) {
 		CHECK(rxn->prdident=(int*)calloc(nprod,sizeof(int)));
-		for(prd=0;prd<nprod;prd++) rxn->prdident[prd]=prdident[prd];
+		    for(prd=0;prd<nprod;prd++) 
+		      rxn->prdident[prd]=prdident[prd];
 		CHECK(rxn->prdstate=(enum MolecState*)calloc(nprod,sizeof(enum MolecState)));
-		for(prd=0;prd<nprod;prd++) rxn->prdstate[prd]=prdstate[prd];
-		CHECK(rxn->prdpos=(double**)calloc(nprod,sizeof(double*)));
-		for(prd=0;prd<nprod;prd++) rxn->prdpos[prd]=NULL;
-		for(prd=0;prd<nprod;prd++) {
-			CHECK(rxn->prdpos[prd]=(double*)calloc(sim->dim,sizeof(double)));
-			for(d=0;d<sim->dim;d++) rxn->prdpos[prd][d]=0;}}
-
+		    for(prd=0;prd<nprod;prd++) 
+		      rxn->prdstate[prd]=prdstate[prd];
+		    
+		//Chr: Sorry for this ugly 4dim array...
+		CHECK(rxn->prdpos=(double****)calloc(sim->nrfs, sizeof(double***)));
+		for(ns=0;ns<sim->nrfs+1; ns++){
+		      rxn->prdpos[ns]=NULL; 
+		      CHECK(rxn->prdpos[ns]=(double***) calloc(sim->nrfs+1, sizeof(double **)));
+		      for(ns2=0;ns2<sim->nrfs+1;ns2++) {
+			  rxn->prdpos[ns][ns2]=NULL;
+			  CHECK(rxn->prdpos[ns][ns2]=(double**)calloc(nprod,sizeof(double*)));
+			  for(prd=0;prd<nprod;prd++) {
+			      rxn->prdpos[ns][ns2][prd]=NULL;
+			      CHECK(rxn->prdpos[ns][ns2][prd]=(double*)calloc(sim->dim,sizeof(double)));
+			      for(d=0;d<sim->dim;d++) rxn->prdpos[ns][ns2][prd][d]=0;
+			  }
+		      }
+		}
+	}
 	rxn->cmpt=cmpt; // add reaction compartment
 	rxn->srf=srf; // add reaction surface
 	surfsetcondition(sim->srfss,SClists,0);
@@ -2381,12 +2552,12 @@ rxnptr RxnAddReactionCheck(simptr sim, char *rname, int order, int *rctident,
 	return NULL;}
 
 /* loadrxn.  Loads a reaction structure from an already opened disk file
- described with pfpptr.  If successful, it returns 0 and the reaction is added to
- sim.  Otherwise it returns 1 and error information in pfpptr.  If a reaction
- structure of the same order has already been set up, this function can use it
- and add more reactions to it.  It can also allocate and set up a new structure,
- if needed.  This need for this function has been largely superceded by
- functionality in loadsim, but this is kept for backward compatibility. */
+described with pfpptr.  If successful, it returns 0 and the reaction is added to
+sim.  Otherwise it returns 1 and error information in pfpptr.  If a reaction
+structure of the same order has already been set up, this function can use it
+and add more reactions to it.  It can also allocate and set up a new structure,
+if needed.  This need for this function has been largely superceded by
+functionality in loadsim, but this is kept for backward compatibility. */
 int loadrxn(simptr sim, ParseFilePtr *pfpptr, char *line2, char *erstr) {
 	ParseFilePtr pfp;
 	rxnssptr rxnss;
@@ -2394,7 +2565,7 @@ int loadrxn(simptr sim, ParseFilePtr *pfpptr, char *line2, char *erstr) {
 	char word[STRCHAR], errstring[STRCHAR];
 
 	char nm[STRCHAR], nm2[STRCHAR], rxnnm[STRCHAR];
-	int i, r, prd, j, i1, i2, i3, nptemp, identlist[MAXPRODUCT], d;
+	int i, r, prd, j,k,l, i1, i2, i3, nptemp, identlist[MAXPRODUCT], d;
 	double rtemp, postemp[DIMMAX];
 	enum MolecState ms, ms1, ms2, mslist[MAXPRODUCT];
 	rxnptr rxn;
@@ -2586,7 +2757,11 @@ int loadrxn(simptr sim, ParseFilePtr *pfpptr, char *line2, char *erstr) {
 			CHECKS(r>=0,"unknown reaction name in confspread_radius");
 			CHECKS(rxnss->rxn[r]->rparamt!=RPconfspread,"confspread_radius can only be entered once for a reaction");
 			CHECKS(rtemp>=0,"confspread_radius needs to be >=0");
-			rxnss->rxn[r]->bindrad2[0][0]=rtemp*rtemp;
+			for(k=0;k<=sim->nrfs;k++){
+			  for(l=0;l<=sim->nrfs;l++){
+			    rxnss->rxn[r]->bindrad2[k][l]=rtemp*rtemp;
+			  }
+			}
 			rxnss->rxn[r]->rparamt=RPconfspread;
 			CHECKS(!strnword(line2,3),"unexpected text following confspread_radius");}
 
@@ -2597,10 +2772,16 @@ int loadrxn(simptr sim, ParseFilePtr *pfpptr, char *line2, char *erstr) {
 			r=stringfind(rxnss->rname,rxnss->totrxn,nm);
 			CHECKS(r>=0,"unknown reaction name in rate_internal");
 			CHECKS(rtemp>=0,"rate_internal needs to be >=0");
-			if(order<2) rxnss->rxn[r]->prob=rtemp;
-			//setting default temporarily
+			for(k=0;k<=sim->nrfs;k++){
+			    for(l=0;l<=sim->nrfs;l++){
+			      if(order<2) rxnss->rxn[r]->prob[k][l]=rtemp; 
 
-			else rxnss->rxn[r]->bindrad2[0][0]=rtemp*rtemp;
+			      else {
+			  
+			      rxnss->rxn[r]->bindrad2[k][l]=rtemp*rtemp;
+			    } 
+			  } 
+			}
 			CHECKS(!strnword(line2,3),"unexpected text following rate_internal");}
 
 		else if(!strcmp(word,"probability")) { // probability
@@ -2611,7 +2792,11 @@ int loadrxn(simptr sim, ParseFilePtr *pfpptr, char *line2, char *erstr) {
 			CHECKS(r>=0,"unknown reaction name in probability");
 			CHECKS(rtemp>=0,"probability needs to be >=0");
 			CHECKS(rtemp<=1,"probability needs to be <=1");
-			rxnss->rxn[r]->prob=rtemp;
+			for(k=0;k<=sim->nrfs;k++){
+			    for(l=0;l<=sim->nrfs;l++){
+				rxnss->rxn[r]->prob[k][l]=rtemp;
+			    }
+			}
 			CHECKS(!strnword(line2,3),"unexpected text following probability");}
 
 		else if(!strcmp(word,"product")) { // product
@@ -2688,12 +2873,12 @@ int loadrxn(simptr sim, ParseFilePtr *pfpptr, char *line2, char *erstr) {
 	return 1;}
 
 /* setuprxns.  Sets up reactions from data that have already been entered.  This
- sets the reaction rates, sets the reaction product placements, sets the reaction
- tau values, and sets the molecule list flags.  Returns 0 for success, 1 for
- failure to allocate memory, 2 for a Smoldyn bug, 3 for molecules not being set
- up sufficiently, 4 for an error with setting either rates or products (in this
- case, an error message is displayed to stderr), or 5 if the reaction structure
- was not sufficiently set up.  This may be run at at start-up or afterwards. */
+sets the reaction rates, sets the reaction product placements, sets the reaction
+tau values, and sets the molecule list flags.  Returns 0 for success, 1 for
+failure to allocate memory, 2 for a Smoldyn bug, 3 for molecules not being set
+up sufficiently, 4 for an error with setting either rates or products (in this
+case, an error message is displayed to stderr), or 5 if the reaction structure
+was not sufficiently set up.  This may be run at at start-up or afterwards. */
 int setuprxns(simptr sim) {
 	int er, order;
 
@@ -2714,37 +2899,37 @@ int setuprxns(simptr sim) {
 /******************************************************************************/
 
 /* doreact.  Executes a reaction that has already been determined to have
- happened.  rxn is the reaction and mptr1 and mptr2 are the reactants, where
- mptr2 is ignored for unimolecular reactions, and both are ignored for zeroth
- order reactions.  ll1 is the live list of mptr1, m1 is its index in the master
- list, ll2 is the live list of mptr2, and m2 is its index in the master list; if
- these don�t apply (i.e. for 0th or 1st order reactions, set them to -1 and if
- either m1 or m2 is unknown, again set the value to -1.  If there are multiple
- molecules, they need to be in the same order as they are listed in the reaction
- structure (which is only important for confspread reactions and for a completely
- consistent panel destination for reactions between two surface-bound molecules).
- Reactants are killed, but left in the live lists.  Any products are created on
- the dead list, for transfer to the live list by the molsort routine.  Molecules
- that are created are put at the reaction position, which is the average position
- of the reactants weighted by the inverse of their diffusion constants, plus an
- offset from the product definition.  The cluster of products is typically
- rotated to a random orientation.  If the displacement was set to all 0�s
- (recommended for non-reacting products), the routine is fairly fast, putting
- all products at the reaction position.  If the rparamt character is RPfixed, the
- orientation is fixed and there is no rotation.  Otherwise, a non-zero
- displacement results in the choosing of random angles and vector rotations.  If
- the system has more than three dimensions, only the first three are randomly
- oriented, while higher dimensions just add the displacement to the reaction
- position.  The function returns 0 for successful operation and 1 if more
- molecules are required than were initially allocated.  This function lists the
- correct box in the box element for each product molecule, but does not add the
- product molecules to the molecule list of the box.  The bptr input is only
- looked at for 0th order reactions; for these, NULL means that products should be
- placed uniformly throughout the system whereas a non-NULL value means that
- products should be placed uniformly throughout the listed box. */
+happened.  rxn is the reaction and mptr1 and mptr2 are the reactants, where
+mptr2 is ignored for unimolecular reactions, and both are ignored for zeroth
+order reactions.  ll1 is the live list of mptr1, m1 is its index in the master
+list, ll2 is the live list of mptr2, and m2 is its index in the master list; if
+these don�t apply (i.e. for 0th or 1st order reactions, set them to -1 and if
+either m1 or m2 is unknown, again set the value to -1.  If there are multiple
+molecules, they need to be in the same order as they are listed in the reaction
+structure (which is only important for confspread reactions and for a completely
+consistent panel destination for reactions between two surface-bound molecules).
+Reactants are killed, but left in the live lists.  Any products are created on
+the dead list, for transfer to the live list by the molsort routine.  Molecules
+that are created are put at the reaction position, which is the average position
+of the reactants weighted by the inverse of their diffusion constants, plus an
+offset from the product definition.  The cluster of products is typically
+rotated to a random orientation.  If the displacement was set to all 0�s
+(recommended for non-reacting products), the routine is fairly fast, putting
+all products at the reaction position.  If the rparamt character is RPfixed, the
+orientation is fixed and there is no rotation.  Otherwise, a non-zero
+displacement results in the choosing of random angles and vector rotations.  If
+the system has more than three dimensions, only the first three are randomly
+oriented, while higher dimensions just add the displacement to the reaction
+position.  The function returns 0 for successful operation and 1 if more
+molecules are required than were initially allocated.  This function lists the
+correct box in the box element for each product molecule, but does not add the
+product molecules to the molecule list of the box.  The bptr input is only
+looked at for 0th order reactions; for these, NULL means that products should be
+placed uniformly throughout the system whereas a non-NULL value means that
+products should be placed uniformly throughout the listed box. */
 int doreact(simptr sim, rxnptr rxn, moleculeptr mptr1, moleculeptr mptr2,
 		int ll1, int m1, int ll2, int m2, double *pos, panelptr pnl) {
-	int order, prd, d, nprod, dim;
+	int order, prd, d, nprod, dim, sf1, sf2;
 	int calc;
 	double dc1, dc2, x, dist;
 	molssptr mols;
@@ -2757,6 +2942,12 @@ int doreact(simptr sim, rxnptr rxn, moleculeptr mptr1, moleculeptr mptr2,
 	dim = sim->dim;
 	order = rxn->rxnss->order;
 
+	sf1=0;
+	sf2=0;
+	if(mptr1 && mptr1->pnl) sf1=mptr1->pnl->srf->surface_number+1;
+	if(mptr2 && mptr2->pnl) sf2=mptr2->pnl->srf->surface_number+1;
+	
+	
 	// get reaction position in rxnpos, pnl, rxnbptr
 	if (rxn->rparamt == RPconfspread) { // confspread
 		pnl = NULL;
@@ -2770,21 +2961,22 @@ int doreact(simptr sim, rxnptr rxn, moleculeptr mptr1, moleculeptr mptr2,
 		rxnbptr = pos2box(sim, rxnpos);
 	}
 
-	else if (order == 1) { // order 1
+	else if (order == 1) { // order 1 
 		for (d = 0; d < dim; d++)
 			rxnpos[d] = mptr1->pos[d];
 		pnl = mptr1->pnl;
+		sf2=sf1;
 		rxnbptr = mptr1->box;
 	}
 
-	else if (order == 2) { // order 2
+	else if (order == 2) { // order 2 
 		dc1 = mols->difc[mptr1->ident][mptr1->mstate];
 		dc2 = mols->difc[mptr2->ident][mptr2->mstate];
 
-		//@Christine: accounting for surface specific difc
-		if (mptr1->pnl && mptr1->pnl->srf->sdifc[mptr1->ident][mptr1->mstate])
+		//@Christine: accounting for surface specific difc 
+		if (mptr1->pnl && mptr1->pnl->srf->sdifc[mptr1->ident][mptr1->mstate]>=0)
 			dc1 = mptr1->pnl->srf->sdifc[mptr1->ident][mptr1->mstate];
-		if (mptr2->pnl && mptr2->pnl->srf->sdifc[mptr1->ident][mptr2->mstate])
+		if (mptr2->pnl && mptr2->pnl->srf->sdifc[mptr1->ident][mptr2->mstate]>=0)
 			dc2 = mptr2->pnl->srf->sdifc[mptr2->ident][mptr2->mstate];
 
 		if (dc1 == 0 && dc2 == 0)
@@ -2841,7 +3033,7 @@ int doreact(simptr sim, rxnptr rxn, moleculeptr mptr1, moleculeptr mptr2,
 			}
 			for (d = 0; d < dim; d++)
 				mptr->pos[d] = rxnpos[d] - (mptr2->pos[d] - mptr1->pos[d])
-						/ dist * rxn->prdpos[prd][0];
+						/ dist * rxn->prdpos[sf1][sf2][prd][0];
 			mptr->pnl = (mptr->mstate == MSsoln) ? NULL : mptrallo->pnl;
 		}
 
@@ -2873,34 +3065,33 @@ int doreact(simptr sim, rxnptr rxn, moleculeptr mptr1, moleculeptr mptr2,
 				fixpt2panel(mptr->posx, pnl, dim, PFnone, sim->srfss->epsilon);
 			}
 
-			for (d = 0; d < dim && rxn->prdpos[prd][d] == 0; d++)
-				;
+			for (d = 0; d < dim && rxn->prdpos[sf1][sf2][prd][d] == 0; d++);
 			if (d != dim) {
 				if (rxn->rparamt == RPfixed) {
 					for (d = 0; d < dim; d++)
-						v1[d] = rxn->prdpos[prd][d];
+						v1[d] = rxn->prdpos[sf1][sf2][prd][d];
 				}
 				else if (dim == 1) {
 					if (!calc) {
 						m3[0] = signrand();
 						calc = 1;
 					}
-					v1[0] = m3[0] * rxn->prdpos[prd][0];
+					v1[0] = m3[0] * rxn->prdpos[sf1][sf2][prd][0];
 				}
 				else if (dim == 2) {
 					if (!calc) {
 						DirCosM2D(m3, unirandCOD(0, 2 * PI));
 						calc = 1;
 					}
-					dotMVD(m3, rxn->prdpos[prd], v1, 2, 2);
+					dotMVD(m3, rxn->prdpos[sf1][sf2][prd], v1, 2, 2);
 				}
-				else if (dim == 3) {
+				else if (dim == 3) { 
 					if (!calc) {
 						DirCosMD(m3, thetarandCCD(), unirandCOD(0, 2 * PI),
 								unirandCOD(0, 2 * PI));
 						calc = 1;
 					}
-					dotMVD(m3, rxn->prdpos[prd], v1, 3, 3);
+					dotMVD(m3, rxn->prdpos[sf1][sf2][prd], v1, 3, 3);
 				}
 				else {
 					if (!calc) {
@@ -2908,9 +3099,9 @@ int doreact(simptr sim, rxnptr rxn, moleculeptr mptr1, moleculeptr mptr2,
 								unirandCOD(0, 2 * PI));
 						calc = 1;
 					}
-					dotMVD(m3, rxn->prdpos[prd], v1, 3, 3);
+					dotMVD(m3, rxn->prdpos[sf1][sf2][prd], v1, 3, 3);
 					for (d = 3; d < dim; d++)
-						v1[d] = rxn->prdpos[prd][d];
+						v1[d] = rxn->prdpos[sf1][sf2][prd][d];
 				}
 				for (d = 0; d < dim; d++)
 					mptr->pos[d] = mptr->posx[d] + v1[d];
@@ -2936,8 +3127,8 @@ int doreact(simptr sim, rxnptr rxn, moleculeptr mptr1, moleculeptr mptr2,
 }
 
 /* zeroreact.  Figures out how many molecules to create for each zeroth order
- reaction and then tells doreact to create them.  It returns 0 for success or 1
- if not enough molecules were allocated initially. */
+reaction and then tells doreact to create them.  It returns 0 for success or 1
+if not enough molecules were allocated initially. */
 int zeroreact(simptr sim) {
 	int i, r, nmol;
 	rxnptr rxn;
@@ -2951,7 +3142,10 @@ int zeroreact(simptr sim) {
 		return 0;
 	for (r = 0; r < rxnss->totrxn; r++) {
 		rxn = rxnss->rxn[r];
-		nmol = poisrandD(rxn->prob);
+		nmol = poisrandD(rxn->prob[0][0]);
+		if(rxn->srf) {
+		      nmol = poisrandD(rxn->prob[rxn->srf->surface_number][rxn->srf->surface_number]);
+		}
 		for (i = 0; i < nmol; i++) {
 			if (rxn->cmpt)
 				compartrandpos(sim, pos, rxn->cmpt);
@@ -2968,14 +3162,14 @@ int zeroreact(simptr sim) {
 }
 
 /* unireact.  Identifies and performs all unimolecular reactions.  Reactions
- that should occur are sent to doreact to process them.  The function returns 0
- for success or 1 if not enough molecules were allocated initially. */
+that should occur are sent to doreact to process them.  The function returns 0
+for success or 1 if not enough molecules were allocated initially. */
 int unireact(simptr sim) {
 	rxnssptr rxnss;
 	rxnptr rxn, *rxnlist;
 	moleculeptr *mlist, mptr;
 	int *nrxn, **table;
-	int i, j, m, nmol, ll;
+	int i, j, m, nmol, ll, mptr_sf;
 	enum MolecState ms;
 
 	rxnss = sim->rxnss[1];
@@ -2992,13 +3186,15 @@ int unireact(simptr sim) {
 				mptr = mlist[m];
 				i = mptr->ident;
 				ms = mptr->mstate;
+				mptr_sf=0;
+				if(mptr->pnl) mptr_sf=mptr->pnl->srf->surface_number;
 				for (j = 0; j < nrxn[i]; j++) {
 					rxn = rxnlist[table[i][j]];
 					if ((!rxn->cmpt && !rxn->srf) || (rxn->cmpt
 							&& posincompart(sim, mptr->pos, rxn->cmpt))
 							|| (rxn->srf && mptr->pnl && mptr->pnl->srf
 									== rxn->srf))
-						if (coinrandD(rxn->prob) && rxn->permit[ms]
+						if (coinrandD(rxn->prob[mptr_sf][mptr_sf]) && rxn->permit[ms]
 								&& mptr->ident != 0) {
 							if (doreact(sim, rxn, mptr, NULL, ll, m, -1, -1,
 									NULL, NULL))
@@ -3013,10 +3209,10 @@ int unireact(simptr sim) {
 }
 
 /* morebireact.  Given a probable reaction from bireact, this orders the
- reactants, checks for reaction permission, moves a reactant in case of periodic
- boundaries, increments the appropriate event counter, and calls doreact to
- perform the reaction.  The return value is 0 for success (which may include no
- reaction) and 1 for failure. */
+reactants, checks for reaction permission, moves a reactant in case of periodic
+boundaries, increments the appropriate event counter, and calls doreact to
+perform the reaction.  The return value is 0 for success (which may include no
+reaction) and 1 for failure. */
 int morebireact(simptr sim, rxnptr rxn, moleculeptr mptr1, moleculeptr mptr2,
 		int ll1, int m1, int ll2, enum EventType et) {
 	moleculeptr mptrA, mptrB;
@@ -3060,10 +3256,10 @@ int morebireact(simptr sim, rxnptr rxn, moleculeptr mptr1, moleculeptr mptr2,
 			double difcA = sim->mols->difc[mptrA->ident][mptrA->mstate];
 			double difcB = sim->mols->difc[mptrB->ident][mptrB->mstate];
 			if (mptrA->pnl
-					&& mptrA->pnl->srf->sdifc[mptrA->ident][mptrA->mstate])
+					&& mptrA->pnl->srf->sdifc[mptrA->ident][mptrA->mstate]>=0)
 				difcA = mptrA->pnl->srf->sdifc[mptrA->ident][mptrA->mstate];
 			if (mptrB->pnl
-					&& mptrB->pnl->srf->sdifc[mptrB->ident][mptrB->mstate])
+					&& mptrB->pnl->srf->sdifc[mptrB->ident][mptrB->mstate]>=0)
 				difcB = mptrB->pnl->srf->sdifc[mptrB->ident][mptrB->mstate];
 
 			if (difcA < difcB) //Christine: If cond. changed to shorter version due to above def.
@@ -3085,13 +3281,13 @@ int morebireact(simptr sim, rxnptr rxn, moleculeptr mptr1, moleculeptr mptr2,
 }
 
 /* bireact.  Identifies likely bimolecular reactions, sending ones that probably
- occur to morebireact for permission testing and reacting.  neigh tells the
- routine whether to consider only reactions between neighboring boxes (neigh=1)
- or only reactions within a box (neigh=0).  The former are relatively slow and so
- can be ignored for qualitative simulations by choosing a lower simulation
- accuracy value.  In cases where walls are periodic, it is possible to have
- reactions over the system walls.  The function returns 0 for success or 1 if not
- enough molecules were allocated initially. */
+occur to morebireact for permission testing and reacting.  neigh tells the
+routine whether to consider only reactions between neighboring boxes (neigh=1)
+or only reactions within a box (neigh=0).  The former are relatively slow and so
+can be ignored for qualitative simulations by choosing a lower simulation
+accuracy value.  In cases where walls are periodic, it is possible to have
+reactions over the system walls.  The function returns 0 for success or 1 if not
+enough molecules were allocated initially. */
 int bireact(simptr sim, int neigh) {
 	int surf_num1, surf_num2, dim, maxspecies, ll1, ll2, i, j, d, *nl, nmol2,
 			b2, m1, m2, bmax, wpcode, nlist, maxlist;
@@ -3134,16 +3330,16 @@ int bireact(simptr sim, int neigh) {
 									dist2 += (mptr1->pos[d] - mptr2->pos[d])
 											* (mptr1->pos[d] - mptr2->pos[d]);
 								//Christine Have to check whether a molecule is on a surface or not and then apply correct bindrad (definitely have to change that for accounting for mol on different surfaces...)
-								surf_num1 = 0;
+								surf_num1 = 0; //cause 0 is default: no surface in the lists
 								surf_num2 = 0;
 								if (mptr1->pnl)
-									surf_num1 = mptr1->pnl->srf->surface_number;
+									surf_num1 = mptr1->pnl->srf->surface_number+1;
 								if (mptr2->pnl)
-									surf_num2 = mptr2->pnl->srf->surface_number;
+									surf_num2 = mptr2->pnl->srf->surface_number+1; 
 								if (dist2
 										<= rxn->bindrad2[surf_num1][surf_num2]
-										&& (rxn->prob == 1 || randCOD()
-												< rxn->prob) && (mptr1->mstate
+										&& (rxn->prob[surf_num1][surf_num2] == 1 || randCOD()
+												< rxn->prob[surf_num1][surf_num2]) && (mptr1->mstate
 										!= MSsoln || mptr2->mstate != MSsoln
 										|| !rxnXsurface(sim, mptr1, mptr2))
 										&& mptr1->ident != 0 && mptr2->ident
@@ -3215,16 +3411,16 @@ int bireact(simptr sim, int neigh) {
 										surf_num1 = 0;
 										if (mptr1->pnl)
 											surf_num1
-													= mptr1->pnl->srf->surface_number;
+													= mptr1->pnl->srf->surface_number+1;
 
 										surf_num2 = 0;
 										if (mptr2->pnl)
 											surf_num2
-													= mptr2->pnl->srf->surface_number;
+													= mptr2->pnl->srf->surface_number+1;
 										if (dist2
 												<= rxn->bindrad2[surf_num1][surf_num2]
-												&& (rxn->prob == 1 || randCOD()
-														< rxn->prob)
+												&& (rxn->prob[surf_num1][surf_num2] == 1 || randCOD()
+														< rxn->prob[surf_num1][surf_num2])
 												&& mptr1->ident != 0
 												&& mptr2->ident != 0) {
 											if (morebireact(sim, rxn, mptr1,
@@ -3260,14 +3456,14 @@ int bireact(simptr sim, int neigh) {
 										surf_num2 = 0;
 										if (mptr1->pnl)
 											surf_num1
-													= mptr1->pnl->srf->surface_number;
+													= mptr1->pnl->srf->surface_number+1;
 										if (mptr2->pnl)
 											surf_num2
-													= mptr2->pnl->srf->surface_number;
+													= mptr2->pnl->srf->surface_number+1;
 										if (dist2
 												<= rxn->bindrad2[surf_num1][surf_num2]
-												&& (rxn->prob == 1 || randCOD()
-														< rxn->prob)
+												&& (rxn->prob[surf_num1][surf_num2] == 1 || randCOD()
+														< rxn->prob[surf_num1][surf_num2])
 												&& (mptr1->mstate != MSsoln
 														|| mptr2->mstate
 																!= MSsoln
@@ -3442,7 +3638,7 @@ unireact_threaded_calculate_reactions(void* data) {
 		{
 			rxn=rxnlist[table[i][j]];
 			if((!rxn->cmpt && !rxn->srf) || (rxn->cmpt && posincompart(sim,mptr->pos,rxn->cmpt)) || (rxn->srf && mptr->pnl && mptr->pnl->srf==rxn->srf))
-			if(coinrandD(rxn->prob) && rxn->permit[ms] && mptr->ident!=0)
+			if(coinrandD(rxn->prob[0][0]) && rxn->permit[ms] && mptr->ident!=0)
 			{
 				outputParams.rxn = rxn;
 				outputParams.mptr1 = mptr;
@@ -3793,10 +3989,10 @@ check_for_interbox_bireactions_threaded(void* data) {
 							}
 						}
 						//Christine Have to check whether a molecule is on a surface or not and then apply correct bindrad (definitely have to change that for accounting for mol on different surfaces...)
-						surf_num1=mptr1->pnl->srf->surface_number;
-						surf_num2=mptr2->pnl->srf->surface_number;
+						surf_num1=mptr1->pnl->srf->surface_number+1;
+						surf_num2=mptr2->pnl->srf->surface_number+1;
 
-						if(dist2<=rxn->bindrad2[surf_num1][surf_num2] && (rxn->prob==1 || randCOD()<rxn->prob) && mptr1->ident!=0 && mptr2->ident!=0)
+						if(dist2<=rxn->bindrad2[surf_num1][surf_num2] && (rxn->prob[surf_num1][surf_num2]==1 || randCOD()<rxn->prob[surf_num1][surf_num2]) && mptr1->ident!=0 && mptr2->ident!=0)
 						{
 							morebireact_params.rxn_to_execute = rxn;
 							morebireact_params.mol_ptr_1 = mptr1;
@@ -3828,9 +4024,9 @@ check_for_interbox_bireactions_threaded(void* data) {
 						dist2+=(mptr1->pos[d]-mptr2->pos[d])*(mptr1->pos[d]-mptr2->pos[d]);
 					}
 					//Christine Have to check whether a molecule is on a surface or not and then apply correct bindrad (definitely have to change that for accounting for mol on different surfaces...)
-					surf_num1=mptr1->pnl->srf->surface_number;
-					surf_num2=mptr2->pnl->srf->surface_number;
-					if(dist2<=rxn->bindrad2[surf_num1][surf_num2] && (rxn->prob==1 || randCOD()<rxn->prob) && (mptr1->mstate!=MSsoln || mptr2->mstate!=MSsoln || !rxnXsurface(sim,mptr1,mptr2)) && mptr1->ident!=0 && mptr2->ident!=0)
+					surf_num1=mptr1->pnl->srf->surface_number+1;
+					surf_num2=mptr2->pnl->srf->surface_number+1;
+					if(dist2<=rxn->bindrad2[surf_num1][surf_num2] && (rxn->prob[surf_num1][surf_num2]==1 || randCOD()<rxn->prob[surf_num1][surf_num2]) && (mptr1->mstate!=MSsoln || mptr2->mstate!=MSsoln || !rxnXsurface(sim,mptr1,mptr2)) && mptr1->ident!=0 && mptr2->ident!=0)
 					{
 						morebireact_params.rxn_to_execute = rxn;
 						morebireact_params.mol_ptr_1 = mptr1;
@@ -3923,9 +4119,9 @@ check_for_intrabox_bireactions_threaded(void* data) {
 				}
 
 				//Christine Have to check whether a molecule is on a surface or not and then apply correct bindrad (definitely have to change that for accounting for mol on different surfaces...)
-				surf_num1=mptr1->pnl->srf->surface_number;
-				surf_num2=mptr2->pnl->srf->surface_number;
-				if(dist2 <= rxn->bindrad2[surf_num1][surf_num2] && randCOD() < rxn->prob &&
+				surf_num1=mptr1->pnl->srf->surface_number+1;
+				surf_num2=mptr2->pnl->srf->surface_number+1;
+				if(dist2 <= rxn->bindrad2[surf_num1][surf_num2] && randCOD() < rxn->prob[surf_num1][surf_num2] &&
 						(mptr1->mstate != MSsoln || mptr2->mstate!=MSsoln || !rxnXsurface(sim,mptr1,mptr2) ) &&
 						mptr1->ident != 0 &&
 						mptr2->ident != 0)
